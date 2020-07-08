@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
   },
   btnParentSection: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 10,
   },
   btnSection: {
     width: Dimensions.get('screen').width * 0.68,
