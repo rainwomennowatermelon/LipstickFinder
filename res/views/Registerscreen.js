@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   StyleSheet,
   Button,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  LayoutAnimation,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { styles } from '../style/Styles.js';
@@ -15,14 +17,51 @@ export default class Registerscreen extends Component {
   constructor(props) {
     super(props);
     this.state = {  
-      Email: '0',
-      Password: '0',
-      ConfirmPassword: '0',
+      email: '0',
+      password: '0',
+      confirmPassword: '0',
     };
   };
 
   onSignupButtonPress(){
-    this.props.navigation.navigate('Questionaire');
+    const emailValid = this.validate_email();
+    const passwordValid = this.validate_password();
+    const confirmPasswordValid = this.validate_confirmpassword();
+    if(!emailValid){
+      LayoutAnimation.easeInEaseOut();
+      Alert.alert('Please Enter Valid Email');
+    }
+    else if(!passwordValid){
+      LayoutAnimation.easeInEaseOut();
+      Alert.alert('Please Enter Valid Password');
+    }
+    else if(!confirmPasswordValid){
+      LayoutAnimation.easeInEaseOut();
+      Alert.alert('Please Enter Same Password as Above');
+    }
+    else{
+      this.props.navigation.navigate('Questionaire');
+    }
+  }
+
+  validate_email(){
+    const { email } = this.state;
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailValid = re.test(email);
+    return emailValid;
+  }
+
+  validate_password(){
+    const { password } = this.state;
+    const passwordValid = password.length >= 8;
+    return passwordValid;
+  }
+
+  validate_confirmpassword(){
+    const { password } = this.state;
+    const { confirmPassword } = this.state;
+    const confirmPasswordValid = ( confirmPassword == password );
+    return confirmPasswordValid;
   }
 
   render() {
@@ -42,7 +81,7 @@ export default class Registerscreen extends Component {
           <TextInput 
             placeholder="Please Input Email"
             style={styles.AccountInput}
-            onChangeText={(Email) => this.setState({Email})}
+            onChangeText={(email) => this.setState({email})}
           />
         </View>
 
@@ -53,7 +92,8 @@ export default class Registerscreen extends Component {
           <TextInput
             placeholder="Please Input Password"
             style={styles.AccountInput}
-            onChangeText={(Password) => this.setState({Password})}
+            secureTextEntry={true}
+            onChangeText={(password) => this.setState({password})}
           />
         </View>
 
@@ -64,7 +104,8 @@ export default class Registerscreen extends Component {
           <TextInput
             placeholder="Please Confirm Password"
             style={styles.AccountInput}
-            onChangeText={(ConfirmPassword) => this.setState({ConfirmPassword})}
+            secureTextEntry={true}
+            onChangeText={(confirmPassword) => this.setState({confirmPassword})}
           />
         </View>
 
