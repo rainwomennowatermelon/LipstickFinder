@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LoginScreen from '../screens/Loginscreen';
-import RegisterScreen from '../screens/Registerscreen';
+import LoginScreen from '../views/Loginscreen';
+import RegisterScreen from '../views/Registerscreen';
 import FunctionRoot from './Functionroot';
-import QuestionaireScreen from '../screens/Questionairescreen';
+import QuestionaireScreen from '../views/Questionairescreen';
 
 import { styles } from '../style/Styles';
 

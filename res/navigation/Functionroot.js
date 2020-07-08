@@ -6,9 +6,9 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
 
-import HomeScreen from '../screens/Homescreen';
-import FindScreen from '../screens/Findscreen';
-import MakeupScreen from '../screens/Makeupscreen';
+import HomeScreen from '../views/Homescreen';
+import FindScreen from '../views/Findscreen';
+import MakeupScreen from '../views/Makeupscreen';
 import AccountRoot from './Accountroot';
 
 const FunctionNavigator = createBottomTabNavigator();

@@ -6,8 +6,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
 
-import Accounteditscreen from '../screens/Accounteditscreen';
-import Accountviewscreen from '../screens/Accountviewscreen';
+import Accounteditscreen from '../views/Accounteditscreen';
+import Accountviewscreen from '../views/Accountviewscreen';
 
 const AccountNavigator = createStackNavigator();
 
