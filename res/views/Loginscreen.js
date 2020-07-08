@@ -9,20 +9,40 @@ import {
   Dimensions
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { styles } from './Styles';
+import { styles } from '../style/Styles.js';
 
-export default class Registerscreen extends Component {
+export default class Loginscreen extends Component {
+
   constructor(props) {
     super(props);
     this.state = {  
       Email: '0',
       Password: '0',
-      ConfirmPassword: '0',
     };
   };
 
-  onSignupButtonPress(){
-    this.props.navigation.navigate('Questionaire');
+  onLoginButtonPress(){
+    this.props.navigation.reset({
+                          index: 0,
+                          routes: [{ name: 'Root' }],});
+  };
+
+  onRegisterButtonPress(){
+    this.props.navigation.navigate('Register');
+  }
+
+  validate_email(email){
+  	var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  validate_password(){
+    const { password } = this.state;
+    const passwordValid = password.length >= 8;
+  }
+
+  login(){
+
   }
 
   render() {
@@ -34,11 +54,7 @@ export default class Registerscreen extends Component {
           </Text>
         </View>
 
-
         <View style={styles.ViewForAccountInput}>
-        <Text style={styles.RegisterReminder}>
-          Email
-        </Text>
           <TextInput 
             placeholder="Please Input Email"
             style={styles.AccountInput}
@@ -47,9 +63,6 @@ export default class Registerscreen extends Component {
         </View>
 
         <View style={styles.ViewForAccountInput}>
-        <Text style={styles.RegisterReminder}>
-          Password
-        </Text>
           <TextInput
             placeholder="Please Input Password"
             style={styles.AccountInput}
@@ -57,27 +70,24 @@ export default class Registerscreen extends Component {
           />
         </View>
 
-        <View style={styles.ViewForAccountInput}>
-        <Text style={styles.RegisterReminder}>
-          Confirm Password
-        </Text>
-          <TextInput
-            placeholder="Please Confirm Password"
-            style={styles.AccountInput}
-            onChangeText={(ConfirmPassword) => this.setState({ConfirmPassword})}
-          />
-        </View>
-
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.AccountButton}
-          onPress={this.onSignupButtonPress.bind(this)}>
+          onPress={this.onLoginButtonPress.bind(this)}>
             <Text style={styles.AccountButtonText}>
-              SIGN UP
+              Login
             </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.AccountButton}
+          onPress={this.onRegisterButtonPress.bind(this)}>
+            <Text style={styles.AccountButtonText}>
+              Register
+            </Text>
+        </TouchableOpacity>
+
       </View>
     )
   }
 }
-

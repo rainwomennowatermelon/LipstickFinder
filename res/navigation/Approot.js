@@ -3,12 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LoginScreen from './Loginscreen';
-import RegisterScreen from './Registerscreen';
+import LoginScreen from '../screens/Loginscreen';
+import RegisterScreen from '../screens/Registerscreen';
 import FunctionRoot from './Functionroot';
-import QuestionaireScreen from './Questionairescreen';
+import QuestionaireScreen from '../screens/Questionairescreen';
 
-import { styles } from './Styles';
+import { styles } from '../style/Styles';
 
 export function AppRoot(){
 	return (

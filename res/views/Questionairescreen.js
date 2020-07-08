@@ -9,7 +9,7 @@ import {
   Dimensions
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { styles } from './Styles';
+import { styles } from '../style/Styles';
 
 export default class Questionairescreen extends Component {
   constructor(props) {

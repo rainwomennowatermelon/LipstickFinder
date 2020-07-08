@@ -6,15 +6,16 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
 
-import HomeScreen from './Homescreen';
-import FindScreen from './Findscreen';
-import MakeupScreen from './Makeupscreen';
-import AccountScreen from './Accountscreen';
+import HomeScreen from '../screens/Homescreen';
+import FindScreen from '../screens/Findscreen';
+import MakeupScreen from '../screens/Makeupscreen';
+import AccountRoot from './Accountroot';
 
 const FunctionNavigator = createBottomTabNavigator();
 
 export default class Functionroot extends Component {
   render() {
+    
     return (
         <FunctionNavigator.Navigator initialRouteName="Home">
           <FunctionNavigator.Screen name="Home" component={HomeScreen} 
@@ -41,7 +42,7 @@ export default class Functionroot extends Component {
               ),
             }} 
           />
-          <FunctionNavigator.Screen name="Account" component={AccountScreen}
+          <FunctionNavigator.Screen name="Account" component={AccountRoot}
             options={{
               tabBarLabel: 'Account',
               tabBarIcon: ({ color, size }) => (
