@@ -55,5 +55,47 @@ export const styles = StyleSheet.create({
     height:20,
     fontSize:15,
     borderColor:'gray',
+  },
+
+  // FindScreen
+  scrollView: {
+    backgroundColor: 'red',
+  },
+  body: {
+    // backgroundColor: 'white',
+    // justifyContent: 'center',
+    // height: Dimensions.get('screen').height,
+    // width: Dimensions.get('screen').width
+  },
+  ImageSections: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'center'
+  },
+  images: {
+    width: Dimensions.get('screen').width * 0.68,
+    height: Dimensions.get('screen').width * 0.68,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  btnParentSection: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  btnSection: {
+    width: Dimensions.get('screen').width * 0.68,
+    height: 50,
+    backgroundColor: '#DCDCDC',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  btnText: {
+    textAlign: 'center',
+    color: 'gray',
+    fontSize: 14,
+    fontWeight:'bold'
   }
 });
