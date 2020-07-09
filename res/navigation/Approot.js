@@ -18,6 +18,7 @@ export function AppRoot(){
           <AppNavigator.Screen name="Register" component={RegisterScreen} />
           <AppNavigator.Screen name="Questionaire" component={QuestionaireScreen} />
           <AppNavigator.Screen name="Root" component={FunctionRoot} options={{ headerShown: false }}/>
+
         </AppNavigator.Navigator>
       </NavigationContainer>
 	);

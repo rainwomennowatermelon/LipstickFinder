@@ -1,3 +1,4 @@
+// Aboutscreen.js
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -9,28 +10,15 @@ import {
   Dimensions
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { styles } from '../style/Styles.js';
 
-export default class Accountscreen extends Component {
-  onRegisterButtonPress(){
-    this.props.navigation.navigate('Edit');
-  }
-
+export default class Accountviewscreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Account Screen</Text>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.AccountButton}
-          onPress={this.onRegisterButtonPress.bind(this)}>
-            <Text style={styles.AccountButtonText}>
-              Edit
-            </Text>
-        </TouchableOpacity>
+        <Text>Account View Screen</Text>
       </View>
-
-
     )
   }
 }
