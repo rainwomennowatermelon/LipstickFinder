@@ -58,44 +58,62 @@ export const styles = StyleSheet.create({
   },
 
   // FindScreen
-  scrollView: {
-    backgroundColor: 'red',
-  },
-  body: {
-    // backgroundColor: 'white',
-    // justifyContent: 'center',
-    // height: Dimensions.get('screen').height,
-    // width: Dimensions.get('screen').width
-  },
-  ImageSections: {
-    display: 'flex',
-    flexDirection: 'row',
+  upperContainer: {
+    // flex: 1,
     marginTop: 20,
-    justifyContent: 'center'
   },
-  images: {
-    width: Dimensions.get('screen').width * 0.68,
-    height: Dimensions.get('screen').width * 0.68,
-    borderColor: 'black',
-    borderWidth: 1,
-  },
-  btnParentSection: {
+  centerContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    height: '100%'
   },
-  btnSection: {
-    width: Dimensions.get('screen').width * 0.68,
-    height: 50,
-    backgroundColor: '#DCDCDC',
+  bottomContainer: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 10,
+  },
+  linearGradient: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
+  },
+  imgWindow: {
+    width: Dimensions.get('screen').width * 0.68,
+    height: Dimensions.get('screen').width * 0.68,
+    minWidth: 200,
+    minHeight: 200,
+  },
+  btnProcess: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    width: Dimensions.get('screen').width * 0.68,
+    minWidth: 200,
+    height: 50,
+    backgroundColor: 'black',
+    borderRadius: 25,
     marginBottom: 10,
+    // elevation: 10, // Android Shadow
+    // shadowColor: 'rgba(0,0,0, 0.5)', // IOS
+    // shadowOffset: {height: 5, width: 5}, // IOS
+    // shadowOpacity: 0.2, // IOS
+    // shadowRadius: 10, //IOS
   },
   btnText: {
     textAlign: 'center',
-    color: 'gray',
-    fontSize: 14,
+    color: 'white',
+    fontSize: 20,
     fontWeight:'bold'
-  }
+  },
+  btnChoose: {
+    alignItems:'center',
+    justifyContent:'center',
+    width: Dimensions.get('screen').width * 0.68,
+    height: Dimensions.get('screen').width * 0.68,
+    minWidth: 200,
+    minHeight: 200,
+    borderRadius: Dimensions.get('screen').width * 0.34,
+    backgroundColor: 'rgba(255,255,255,0.5)',
+  },
 });
