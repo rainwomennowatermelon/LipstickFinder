@@ -7,6 +7,7 @@ import LoginScreen from '../views/Loginscreen';
 import RegisterScreen from '../views/Registerscreen';
 import FunctionRoot from './Functionroot';
 import QuestionaireScreen from '../views/Questionairescreen';
+import LipsticksInforScreen from '../views/Lipsticksinforscreen';
 
 import { styles } from '../style/Styles';
 
@@ -18,7 +19,7 @@ export function AppRoot(){
           <AppNavigator.Screen name="Register" component={RegisterScreen} />
           <AppNavigator.Screen name="Questionaire" component={QuestionaireScreen} />
           <AppNavigator.Screen name="Root" component={FunctionRoot} options={{ headerShown: false }}/>
-
+		  <AppNavigator.Screen name="LipsticksInfor" component={LipsticksInforScreen} />
         </AppNavigator.Navigator>
       </NavigationContainer>
 	);
