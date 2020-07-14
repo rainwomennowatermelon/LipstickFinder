@@ -6,9 +6,9 @@ import { createDrawerNavigator,
   DrawerItemList,
   DrawerItem, } from '@react-navigation/drawer';
 
-
-import Accounteditscreen from '../views/Accounteditscreen';
-import Accountviewscreen from '../views/Accountviewscreen';
+import Accounteditscreen from '../views/Accountscreen/Accounteditscreen.js';
+import Lipstickinforoot from '../navigation/Lipstickinforoot.js';
+import Changepwdscreen from '../views/Accountscreen/Changepwdscreen.js';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,6 +39,7 @@ function CustomDrawerContent(props) {
   );
 }
 
+
 export default class Accountroot extends Component {
   render() {
     return (
@@ -58,9 +59,9 @@ export default class Accountroot extends Component {
           }}
         >
 
-          <Drawer.Screen name="Like list" component={Accountviewscreen} />
-          <Drawer.Screen name="Profile" component={Accounteditscreen} />
-          <Drawer.Screen name="Password" component={Accounteditscreen} />
+          <Drawer.Screen name="Likes" component={Lipstickinforoot} />
+          <Drawer.Screen name="Settings" component={Accounteditscreen} />
+          <Drawer.Screen name="Password" component={Changepwdscreen} />
           <Drawer.Screen name="About us" component={Accounteditscreen} />
           <Drawer.Screen name="Privacy policy" component={Accounteditscreen} />
 

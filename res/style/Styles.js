@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     textAlign:'center'
   },
-  AccountButton:{     
+  AccountButton:{
     width:devwidth - 150,
     height:35,
     borderRadius:5,
@@ -106,6 +106,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight:'bold'
   },
+
   btnChoose: {
     alignItems:'center',
     justifyContent:'center',
@@ -116,4 +117,67 @@ export const styles = StyleSheet.create({
     borderRadius: Dimensions.get('screen').width * 0.34,
     backgroundColor: 'rgba(255,255,255,0.5)',
   },
+
+});
+
+export const accountStyles = StyleSheet.create({
+  heading: {
+    color: 'white',
+    fontSize: 23,
+    fontWeight: 'bold',
+  },
+  Gtext: {
+    fontSize: 20,
+    color: 'gray',
+    marginLeft: 7,
+  },
+  Ninput: {
+    fontSize: 16,
+    marginLeft: 5,
+    color: '#101010',
+  },
+  container: {
+      justifyContent: 'center',
+  },
+  bottomView: {
+      backgroundColor: 'white',
+      marginTop: 15,
+      height: 100,
+  },
+  inputText: {
+      paddingVertical: 5,
+      color: '#3c3c3c',
+      marginLeft: 10,
+      fontSize: 14,
+      textAlign: 'left'
+  },
+  inputView:{
+      backgroundColor: 'white',
+      borderRadius: 5,
+      justifyContent: 'flex-start',
+      borderWidth: 1,
+      marginHorizontal: 20,
+      marginVertical: 10,
+      borderColor: '#3c3c3c',
+      overflow: 'hidden',
+  },
+  btnSave: {
+      backgroundColor: '#00ACC1',
+      paddingHorizontal: 30,
+      height: 30,
+      justifyContent: 'center',
+      borderRadius: 15,
+      overflow: 'hidden',
+      alignSelf: 'center',
+      marginTop: 15
+  },
+
+  textSave: {
+      alignSelf: 'center',
+      color: 'white',
+      fontSize: 16,
+      textAlign: 'center',
+      marginHorizontal: 5
+  }
+
 });
