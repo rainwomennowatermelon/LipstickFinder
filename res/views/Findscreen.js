@@ -100,7 +100,7 @@ export default class Findscreen extends Component {
   render() {
     return (
       <LinearGradient
-        colors={['#43b7b8', '#436aac', '#8929ad']}
+        colors={['#43b7b8', '#8929ad']}
         start={{x: 0, y: 0}}
         end={{x: 0.8, y: 0.8}}
         style={styles.Container}>
