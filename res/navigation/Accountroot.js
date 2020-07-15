@@ -9,6 +9,7 @@ import { createDrawerNavigator,
 import Accounteditscreen from '../views/Accountscreen/Accounteditscreen.js';
 import Lipstickinforoot from '../navigation/Lipstickinforoot.js';
 import Changepwdscreen from '../views/Accountscreen/Changepwdscreen.js';
+import Accountaboutscreen from '../views/Accountscreen/Accountaboutscreen.js';
 
 const Drawer = createDrawerNavigator();
 
@@ -62,7 +63,7 @@ export default class Accountroot extends Component {
           <Drawer.Screen name="Likes" component={Lipstickinforoot} />
           <Drawer.Screen name="Settings" component={Accounteditscreen} />
           <Drawer.Screen name="Password" component={Changepwdscreen} />
-          <Drawer.Screen name="About us" component={Accounteditscreen} />
+          <Drawer.Screen name="About us" component={Accountaboutscreen} />
           <Drawer.Screen name="Privacy policy" component={Accounteditscreen} />
 
         </Drawer.Navigator>

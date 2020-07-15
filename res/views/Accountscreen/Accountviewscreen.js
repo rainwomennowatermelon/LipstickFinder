@@ -12,7 +12,7 @@ import {
 import { Avatar, Button, Icon, ListItem } from 'react-native-elements';
 import { styles, accountStyles } from '../../style/Styles.js';
 import { Header } from './AccountHeader.js';
-import ImagePicker from 'react-native-image-crop-picker';
+
 
 const list = [
   {
@@ -70,7 +70,7 @@ export default class Accountviewscreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileUri: null,
+      profileUri: 'https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg',
       userName: 'Paul Allen',
     };
   }
@@ -90,43 +90,6 @@ export default class Accountviewscreen extends Component {
     />
   )
 
-  //change profiel image
-  clickHead(){
-      ImagePicker.openPicker({
-          width: 500,
-          height: 500,
-          cropping: true,
-          cropperCircleOverlay:true,
-      }).then(response => {
-        console.log('received image', response.path);
-        this.setState({
-          profileUri: response.path
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-        alert(e.message ? e.message : e);
-      });
-  }
-
-  renderAvatar = () => {
-    var profileUri = 'https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg';
-    if (this.state.profileUri) {
-      profileUri = this.state.profileUri;
-    }
-    return (
-      <Avatar
-        size={135}
-        source={{uri: profileUri}}
-        activeOpacity={0.7}
-        avatarStyle={{ borderRadius: 145 / 2 }}
-        overlayContainerStyle={{ backgroundColor: 'transparent' }}
-        showAccessory
-        onAccessoryPress={()=> this.clickHead()}
-        // onPress={() => console.log('edit button pressed')}
-      />
-    )
-  }
 
 
   render() {
@@ -156,7 +119,16 @@ export default class Accountviewscreen extends Component {
                   alignItems: 'center',
                 }}
               >
-              {this.renderAvatar()}
+              <Avatar
+                size={140}
+                source={{uri: this.state.profileUri}}
+                activeOpacity={0.7}
+                avatarStyle={{ borderRadius: 145 / 2 }}
+                overlayContainerStyle={{ backgroundColor: 'transparent' }}
+                // showAccessory
+                // onAccessoryPress={()=> this.clickHead()}
+                // onPress={() => console.log('edit button pressed')}
+              />
               </View>
               <View
                 style={{
