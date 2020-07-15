@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet, TouchableOpacity, Image, Dimensions  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions  } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { Avatar, Button, Icon, ListItem, Header } from 'react-native-elements';
 
 import starBlack from '../images/star-black.png';
 import starYellow from '../images/star-yellow.png';
@@ -59,14 +60,30 @@ export default class Homescreen extends Component {
 			height: 50,
 			borderRadius: 50 / 2,
 			backgroundColor: color,
-			//borderColor: 'black',
-			//borderWidth: 2
 		}
 	};
 	
 	render() {
 		return (
+			<>
 			<View style={styles.container}>
+				<TouchableOpacity style={styles.underButton1}>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.underButton2}>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.underButton3}>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.underButton4}>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.underButton5}>
+				</TouchableOpacity>
+			</View>
+			<View style={styles.container}>
+				<Text style={styles.recommend}>
+					Recommend for You
+				</Text>
+				<View style={styles.transparentSquare}>
+				</View>
 				<View style={styles.row}>
 					<View style={this.circleStyle(this.state.lipstickInfos[0].color)}>
 					</View>
@@ -173,15 +190,59 @@ export default class Homescreen extends Component {
 					</TouchableOpacity>
 				</View>
 			</View>
+			</>
 		)
 	}
 	
 }
 
 const styles = StyleSheet.create({
+	underButton1:{
+        width:320,
+        height:70,
+        position:'absolute',
+        backgroundColor: 'white',
+        top:101,
+        left:20,
+    },
+	underButton2:{
+        width:320,
+        height:70,
+        position:'absolute',
+        backgroundColor: 'white',
+        top:181,
+        left:20,
+    },
+	underButton3:{
+        width:320,
+        height:70,
+        position:'absolute',
+        backgroundColor: 'white',
+        top:261,
+        left:20,
+    },
+	underButton4:{
+        width:320,
+        height:70,
+        position:'absolute',
+        backgroundColor: 'white',
+        top:341,
+        left:20,
+    },
+	underButton5:{
+        width:320,
+        height:70,
+        position:'absolute',
+        backgroundColor: 'white',
+        top:421,
+        left:20,
+    },
 	container: {
+		position:'absolute',
+		top:33,
 		flex: 1,
 		justifyContent:'center',
+		//backgroundColor: 'white',
 		//alignItems:'center'
 	},
 	row: {
@@ -213,6 +274,11 @@ const styles = StyleSheet.create({
 	lipstickName:{
 		padding:12,
 		fontSize:18,
+	},
+	recommend:{
+		left:20,
+		top:30,
+		fontSize:26,
 		fontWeight:'bold'
 	}
 });

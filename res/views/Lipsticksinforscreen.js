@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, Linking  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, Linking  } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { Avatar, Button, Icon, ListItem, Header } from 'react-native-elements';
 
 
 export default class Accountscreen extends Component {
@@ -43,6 +44,7 @@ export default class Accountscreen extends Component {
 	render() {
 		
 		return (
+			<>
 			<View style={styles.container}>
 				<View style={styles.firstRow}>
 					<View style={this.squareStyle(this.state.color)}>
@@ -102,6 +104,7 @@ export default class Accountscreen extends Component {
 					</TouchableOpacity>
 				</View>
 			</View>
+			</>
 		)
 	}
 }
@@ -109,7 +112,8 @@ export default class Accountscreen extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent:'center'
+		justifyContent:'center',
+		backgroundColor: 'white',
 		//alignItems:'center'
 	},
 	firstRow: {
