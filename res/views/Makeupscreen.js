@@ -96,7 +96,7 @@ export default class Makeupscreen extends Component {
   };
 
   processImage = () => {
-    const color = this.state.selectedLipstick['color'];
+    const color = this.state.selectedLipstick['color'].replace('#', '');
     const photoData = this.state.photoData;
     const photoMime = this.state.photoMime;
     RNFetchBlob.fetch('POST', URLS.MAKEUP, {

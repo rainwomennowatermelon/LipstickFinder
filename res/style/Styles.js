@@ -86,7 +86,6 @@ export const styles = StyleSheet.create({
     height: Dimensions.get('screen').width * 0.68,
     minWidth: 200,
     minHeight: 200,
-    backgroundColor: 'red',
   },
   btnProcess: {
     alignItems: 'center',
