@@ -35,15 +35,6 @@ export default class Homescreen extends Component {
     });
   }
 
-  circleStyle(color) {
-    return {
-      width: 50,
-      height: 50,
-      borderRadius: 50 / 2,
-      backgroundColor: color,
-    };
-  };
-
   updateLike = (index) => {
     this.state.lipstickInfos[index].like = !this.state.lipstickInfos[index].like;
     this.forceUpdate();
@@ -83,12 +74,12 @@ export default class Homescreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
     justifyContent: 'center',
   },
   row: {
     left: 25,
-    flexDirection: 'row',
-    //justifyContent:'center',
+    justifyContent:'center',
     alignItems: 'center',
     padding: 10,
   },

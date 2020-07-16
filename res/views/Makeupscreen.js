@@ -61,7 +61,7 @@ export default class Makeupscreen extends Component {
       photoMime: null,
       photoUpdateData: null,
       photoUpdateMime: null,
-      // photoPath: 'file:///storage/emulated/0/Android/data/com.lipstickfinder/files/Pictures/bab61e2c-ff42-43f1-b3db-7ccca431123c.jpg',
+      changePhoto: false,
       brands: [],
       series: [],
       lipsticks: [],
@@ -88,6 +88,7 @@ export default class Makeupscreen extends Component {
         photoData: image.data,
         photoPath: image.path,
         photoMime: image.mime,
+        changePhoto: true,
       });
       storeData('photoData', image.data);
       storeData('photoPath', image.path);
@@ -113,6 +114,7 @@ export default class Makeupscreen extends Component {
       this.setState({
         photoUpdateData: res['data'],
         photoUpdateMime: res['Content-Type'],
+        changePhoto: false,
       });
     }).catch(err => {
       alert(err);
@@ -122,7 +124,7 @@ export default class Makeupscreen extends Component {
   renderImage = () => {
     if (this.state.photoPath && this.state.selectedLipstick) {
       console.log('renderImage:', this.state.photoPath, this.state.selectedLipstick);
-      if (this.state.photoUpdateData) {
+      if (this.state.photoUpdateData && !this.state.changePhoto) {
         return (
           <View style={styles.Container}>
             <TouchableOpacity onPress={this.chooseImage}>
@@ -171,6 +173,8 @@ export default class Makeupscreen extends Component {
 
   componentDidMount() {
     console.log('componentDidMount');
+    // removeData('photoData');
+    // removeData('photoPath');
 
     AsyncStorage.getItem('photoData').then(value => {
       console.log('componentDidMount read photoData');

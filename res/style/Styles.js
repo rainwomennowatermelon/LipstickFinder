@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
   // FindScreen
   upperContainer: {
     // flex: 1,
-    marginTop: 20,
+    marginTop: 50,
   },
   centerContainer: {
     flexDirection: 'column',
@@ -123,6 +123,7 @@ export const styles = StyleSheet.create({
   MakeupContainer: {
     flex: 1,
     padding: 20,
+    marginTop: 20,
   },
   PickerContainer: {
     flexDirection: 'row',

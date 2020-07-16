@@ -34,6 +34,7 @@ export default class Findscreen extends Component {
           photo: response,
           fileUri: response.uri,
         });
+        console.log(response.uri);
       }
     });
   };
