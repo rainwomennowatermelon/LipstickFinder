@@ -118,23 +118,57 @@ export default class Makeupscreen extends Component {
     });
   };
 
+  getImageSource = () => {
+    console.log('getImageSource', );
+    if (this.state.photoUpdateData) {
+      return (
+        <Image
+          source={{uri: `data:${this.state.photoUpdateMime};base64,${this.state.photoUpdateData}`}}
+          style={styles.imgWindow}/>
+      );
+    } else {
+      return (
+        <Image
+          source={{uri: `data:${this.state.photoMime};base64,${this.state.photoData}`}}
+          style={styles.imgWindow}/>
+      );
+    }
+  };
+
   renderImage = () => {
     if (this.state.photoPath && this.state.selectedLipstick) {
       console.log('renderImage:', this.state.photoPath, this.state.selectedLipstick);
-      return (
-        <View style={styles.Container}>
-          <TouchableOpacity onPress={this.chooseImage}>
-            <Image
-              source={{uri: `data:${this.state.photoMime};base64,${this.state.photoData}`}}
-              style={styles.imgWindow}/>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.processImage}
-            style={styles.btnProcess}>
-            <Text style={styles.btnText}>PROCESS</Text>
-          </TouchableOpacity>
-        </View>
-      );
+      if (this.state.photoUpdateData) {
+        return (
+          <View style={styles.Container}>
+            <TouchableOpacity onPress={this.chooseImage}>
+              <Image
+                source={{uri: `data:${this.state.photoUpdateMime};base64,${this.state.photoUpdateData}`}}
+                style={styles.imgWindow}/>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.processImage}
+              style={styles.btnProcess}>
+              <Text style={styles.btnText}>PROCESS</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      } else {
+        return (
+          <View style={styles.Container}>
+            <TouchableOpacity onPress={this.chooseImage}>
+              <Image
+                source={{uri: `data:${this.state.photoMime};base64,${this.state.photoData}`}}
+                style={styles.imgWindow}/>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.processImage}
+              style={styles.btnProcess}>
+              <Text style={styles.btnText}>PROCESS</Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }
     } else {
       return (
         <View style={styles.Container}>
