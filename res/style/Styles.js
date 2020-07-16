@@ -2,6 +2,7 @@ import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
 var devwidth = Dimensions.get('window').width;
+var devheight = Dimensions.get('window').height;
 const PICKER_BORDER_RADIUS = 5;
 
 export const styles = StyleSheet.create({
@@ -155,8 +156,10 @@ export const styles = StyleSheet.create({
   },
 
   checkboxContainer: {
+    width:(devwidth-50)/2,
     flexDirection: "row",
-    marginBottom: 20,
+    marginTop: 5,
+    marginBottom: 5,
   },
   checkbox: {
     alignSelf: "center",
@@ -168,6 +171,29 @@ export const styles = StyleSheet.create({
     margin: 8,
     fontSize: 32,
   },
+  choices: {
+    width:devwidth-30,
+    flexDirection: "column",
+    alignItems:'flex-start',
+    justifyContent:'flex-start',
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  questions: {
+    marginTop: 5,
+    marginBottom: 5,
+    fontSize: 15,
+  },
+  questioncontainer:{
+    flex: 1,
+    width:devwidth*0.75,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  selection:{
+    marginTop: 10,
+    marginBottom: 10,
+  }
 });
 
 export const accountStyles = StyleSheet.create({

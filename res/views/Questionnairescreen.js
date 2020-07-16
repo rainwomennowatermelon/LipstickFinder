@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {
+    Alert,
     ScrollView,
+    LayoutAnimation,
     FlatList,
     Button,
     View,
@@ -25,10 +27,10 @@ export default class Questionnairescreen extends Component {
             email: this.props.route.params.email,
             password: this.props.route.params.password,
             isSelected: false,
-            genderSelected: [false, false],
-            kindSelected: [false, false],
-            textureSelected: [false, false],
-            colorSelected: [false, false, false],
+            genderSelected: [],
+            kindSelected: [],
+            textureSelected: [],
+            colorSelected: [],
         };
     };
 
@@ -49,7 +51,7 @@ export default class Questionnairescreen extends Component {
     checkGener = () => {
         const {genderSelected} = this.state;
         let count = 0;
-        for (i = 0; i < gender.length; i++) {
+        for (var i = 0; i < gender.length; i++) {
             if (genderSelected[i] == true)
                 count++;
         }
@@ -64,7 +66,7 @@ export default class Questionnairescreen extends Component {
     checkKind = () => {
         const {kindSelected} = this.state;
         let count = 0;
-        for (i = 0; i < kind.length; i++) {
+        for (var i = 0; i < kind.length; i++) {
             if (kindSelected[i] == true)
                 count++;
         }
@@ -79,7 +81,7 @@ export default class Questionnairescreen extends Component {
     checkTexture = () => {
         const {textureSelected} = this.state;
         let count = 0;
-        for (i = 0; i < kind.length; i++) {
+        for (var i = 0; i < kind.length; i++) {
             if (textureSelected[i] == true)
                 count++;
         }
@@ -91,10 +93,25 @@ export default class Questionnairescreen extends Component {
         }
     };
 
+    checkColor = () => {
+        const {colorSelected} = this.state;
+        let count = 0;
+        for (var i = 0; i < color.length; i++) {
+            if (colorSelected[i] == true)
+                count++;
+        }
+        if (count == 0) {
+            Alert.alert('Please give at least one choice in kind!');
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     setGener = () => {
         let genderUpload = "";
-        for (i = 0; i < gender.length; i++) {
-            if (genderSelected[i] == true) {
+        for (var i = 0; i < gender.length; i++) {
+            if (this.state.genderSelected[i] == true) {
                 genderUpload = gender[i];
                 break;
             }
@@ -104,8 +121,8 @@ export default class Questionnairescreen extends Component {
 
     setKind = () => {
         let kindUpload = [];
-        for (i = 0; i < kind.length; i++) {
-            if (kindSelected[i] == true)
+        for (var i = 0; i < kind.length; i++) {
+            if (this.state.kindSelected[i] == true)
                 kindUpload.push(kind[i]);
         }
         return kindUpload;
@@ -113,17 +130,17 @@ export default class Questionnairescreen extends Component {
 
     setTexture = () => {
         let textureUpload = [];
-        for (i = 0; i < texture.length; i++) {
-            if (textureSelected[i] == true)
-                textureUpload.push(kind[i]);
+        for (var i = 0; i < texture.length; i++) {
+            if (this.state.textureSelected[i] == true)
+                textureUpload.push(texture[i]);
         }
         return textureUpload;
     };
 
     setColor = () => {
         let colorUpload = [];
-        for (i = 0; i < color.length; i++) {
-            if (colorSelected[i] == true)
+        for (var i = 0; i < color.length; i++) {
+            if (this.state.colorSelected[i] == true)
                 colorUpload.push(color[i]);
         }
         return colorUpload;
@@ -132,7 +149,19 @@ export default class Questionnairescreen extends Component {
     uploadQuestionaire = () => {
         const {email} = this.state;
         const {password} = this.state;
-        fetch('http://124.156.143.125:5000/uploadQuestionaire', {
+
+        let uploadGender = this.setGener();
+        let uploadKind = this.setKind();
+        let uploadTexture = this.setTexture();
+        let uploadColor = this.setColor();
+
+        console.log(email);
+        console.log(password);
+        console.log(uploadGender);
+        console.log(uploadKind);
+        console.log(uploadTexture);
+        console.log(uploadColor);
+        fetch('http://124.156.143.125:5000/uploadQuestionnaire', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -170,6 +199,10 @@ export default class Questionnairescreen extends Component {
     renderGenderChoice = () => {
         const {genderSelected} = this.state;
         return (
+          <View style={styles.choices}>
+            <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              <Text style={styles.questions}>1. Choose the gender you belong to:</Text>
+            </View>
             <FlatList
                 ItemSeparatorComponent={
                     Platform.OS !== 'android' &&
@@ -182,8 +215,9 @@ export default class Questionnairescreen extends Component {
                         />
                     ))
                 }
+                keyExtractor={(item, index) => 'key'+index}
                 horizontal={false}
-                numColumns={3}
+                numColumns={2}
                 data={gender}
                 extraData={this.state}
                 renderItem={({item, index, separators}) => (
@@ -197,6 +231,7 @@ export default class Questionnairescreen extends Component {
                     </View>
                 )}
             />
+          </View>
         );
     }
 
@@ -209,6 +244,10 @@ export default class Questionnairescreen extends Component {
     renderKindChoice = () => {
         const {kindSelected} = this.state;
         return (
+          <View style={styles.choices}>
+            <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              <Text style={styles.questions}>2. Choose the kind of Lipsticks you like:</Text>
+            </View>
             <FlatList
                 ItemSeparatorComponent={
                     Platform.OS !== 'android' &&
@@ -221,8 +260,9 @@ export default class Questionnairescreen extends Component {
                         />
                     ))
                 }
+                keyExtractor={(item, index) => 'key'+index}
                 horizontal={false}
-                numColumns={3}
+                numColumns={2}
                 data={kind}
                 extraData={this.state}
                 renderItem={({item, index, separators}) => (
@@ -236,6 +276,7 @@ export default class Questionnairescreen extends Component {
                     </View>
                 )}
             />
+          </View>
         );
     }
 
@@ -246,8 +287,11 @@ export default class Questionnairescreen extends Component {
     }
 
     renderTextureChoice = () => {
-        const {kindSelected} = this.state;
         return (
+          <View style={styles.choices}>
+            <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              <Text style={styles.questions}>3. Choose the texture of Lipsticks you like:</Text>
+            </View>
             <FlatList
                 ItemSeparatorComponent={
                     Platform.OS !== 'android' &&
@@ -260,8 +304,9 @@ export default class Questionnairescreen extends Component {
                         />
                     ))
                 }
+                keyExtractor={(item, index) => 'key'+index}
                 horizontal={false}
-                numColumns={3}
+                numColumns={2}
                 data={texture}
                 extraData={this.state}
                 renderItem={({item, index, separators}) => (
@@ -275,6 +320,7 @@ export default class Questionnairescreen extends Component {
                     </View>
                 )}
             />
+          </View>
         );
     }
 
@@ -287,6 +333,10 @@ export default class Questionnairescreen extends Component {
     renderColorChoice = () => {
         const {colorSelected} = this.state;
         return (
+          <View style={styles.choices}>
+            <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              <Text style={styles.questions}>4. Choose the color of Lipsticks you like:</Text>
+            </View>
             <FlatList
                 ItemSeparatorComponent={
                     Platform.OS !== 'android' &&
@@ -299,40 +349,44 @@ export default class Questionnairescreen extends Component {
                         />
                     ))
                 }
+                keyExtractor={(item, index) => 'key'+index}
                 horizontal={false}
-                numColumns={3}
+                numColumns={2}
                 data={color}
                 extraData={this.state}
                 renderItem={({item, index, separators}) => (
                     <View style={styles.checkboxContainer}>
                         <CheckBox
                             style={styles.checkbox}
-                            onValueChange={() => this.handleTextureChange(index)}
+                            onValueChange={() => this.handleColorChange(index)}
                             value={this.state.colorSelected[index]}
                         />
                         <Text style={styles.label}>{item}</Text>
                     </View>
                 )}
             />
+          </View>
         );
     }
 
     render() {
         return (
             <View style={styles.Container}>
+              <ScrollView>
                 {this.renderGenderChoice()}
                 {this.renderKindChoice()}
                 {this.renderTextureChoice()}
                 {this.renderColorChoice()}
+              </ScrollView>
 
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.AccountButton}
-                    onPress={this.onOkButtonPress.bind(this)}>
-                    <Text style={styles.AccountButtonText}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.AccountButton}
+                onPress={this.onOkButtonPress.bind(this)}>
+                <Text style={styles.AccountButtonText}>
                         OK
-                    </Text>
-                </TouchableOpacity>
+                </Text>
+              </TouchableOpacity>
             </View>
         )
     }

@@ -17,7 +17,7 @@ export function AppRoot(){
         <AppNavigator.Navigator initialRouteName="Login">
           <AppNavigator.Screen name="Login" component={LoginScreen} />
           <AppNavigator.Screen name="Register" component={RegisterScreen} />
-          <AppNavigator.Screen name="Questionnaire" component={QuestionnaireScreen} />
+          <AppNavigator.Screen name="Questionnaire" component={QuestionnaireScreen} options={{ headerShown: false }}/>
           <AppNavigator.Screen name="Root" component={FunctionRoot} options={{ headerShown: false }}/>
 		  <AppNavigator.Screen name="LipsticksInfor" component={LipsticksInforScreen} />
         </AppNavigator.Navigator>

@@ -78,8 +78,8 @@ export default class Registerscreen extends Component {
 
     onTestNextButtonPress() {
         this.props.navigation.navigate('Questionnaire', {
-            email: email,
-            password: password
+            email: "qiaosj@connect.hku.hk",
+            password: "qsj12345",
         });
     }
 
