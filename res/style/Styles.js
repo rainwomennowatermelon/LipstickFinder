@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     textAlign:'center'
   },
-  AccountButton:{     
+  AccountButton:{
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
