@@ -110,7 +110,6 @@ export default class Findscreen extends Component {
           <ScrollView>
             {this.state.lipsticks.map((l, index) => (
               <ListItem
-                style={styles.LipstickListItem}
                 key={index}
                 chevron
                 leftIcon={{

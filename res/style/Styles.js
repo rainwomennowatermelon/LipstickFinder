@@ -2,6 +2,7 @@ import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
 var devwidth = Dimensions.get('window').width;
+const PICKER_BORDER_RADIUS = 5;
 
 export const styles = StyleSheet.create({
   Container: {
@@ -85,6 +86,7 @@ export const styles = StyleSheet.create({
     height: Dimensions.get('screen').width * 0.68,
     minWidth: 200,
     minHeight: 200,
+    backgroundColor: 'red',
   },
   btnProcess: {
     alignItems: 'center',
@@ -96,11 +98,11 @@ export const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 25,
     marginBottom: 10,
-    // elevation: 10, // Android Shadow
-    // shadowColor: 'rgba(0,0,0, 0.5)', // IOS
-    // shadowOffset: {height: 5, width: 5}, // IOS
-    // shadowOpacity: 0.2, // IOS
-    // shadowRadius: 10, //IOS
+    elevation: 10, // Android Shadow
+    shadowColor: 'rgba(0,0,0, 0.5)', // IOS
+    shadowOffset: {height: 5, width: 5}, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 10, //IOS
   },
   btnText: {
     textAlign: 'center',
@@ -117,6 +119,36 @@ export const styles = StyleSheet.create({
     minHeight: 200,
     borderRadius: Dimensions.get('screen').width * 0.34,
     backgroundColor: 'rgba(255,255,255,0.5)',
+  },
+  // makeup
+  MakeupContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  PickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 35,
+    backgroundColor: 'white',
+    borderRadius: PICKER_BORDER_RADIUS,
+    margin: 5,
+  },
+  PickerLabel: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 35,
+    backgroundColor: 'black',
+    borderTopLeftRadius: PICKER_BORDER_RADIUS,
+    borderBottomLeftRadius: PICKER_BORDER_RADIUS,
+  },
+  PickerLabelText: {
+    fontSize: 15,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  Picker: {
+    flex: 3,
   },
 });
 
@@ -153,16 +185,16 @@ export const accountStyles = StyleSheet.create({
   },
   inputView: {
     backgroundColor: 'white',
-    borderRadius: 5,
+    borderRadius: 10,
     justifyContent: 'flex-start',
     borderWidth: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 30,
     marginVertical: 10,
     borderColor: '#3c3c3c',
     overflow: 'hidden',
   },
   btnSave: {
-    backgroundColor: '#00ACC1',
+    backgroundColor: '#CA7476',
     paddingHorizontal: 30,
     height: 30,
     justifyContent: 'center',
