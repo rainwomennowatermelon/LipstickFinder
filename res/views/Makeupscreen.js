@@ -97,6 +97,7 @@ export default class Makeupscreen extends Component {
 
   processImage = () => {
     const color = this.state.selectedLipstick['color'].replace('#', '');
+    console.log(color);
     const photoData = this.state.photoData;
     const photoMime = this.state.photoMime;
     RNFetchBlob.fetch('POST', URLS.MAKEUP, {
@@ -116,23 +117,6 @@ export default class Makeupscreen extends Component {
     }).catch(err => {
       alert(err);
     });
-  };
-
-  getImageSource = () => {
-    console.log('getImageSource', );
-    if (this.state.photoUpdateData) {
-      return (
-        <Image
-          source={{uri: `data:${this.state.photoUpdateMime};base64,${this.state.photoUpdateData}`}}
-          style={styles.imgWindow}/>
-      );
-    } else {
-      return (
-        <Image
-          source={{uri: `data:${this.state.photoMime};base64,${this.state.photoData}`}}
-          style={styles.imgWindow}/>
-      );
-    }
   };
 
   renderImage = () => {

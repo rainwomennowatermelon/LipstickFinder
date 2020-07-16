@@ -36,8 +36,8 @@ export default class Accountscreen extends Component {
 
   squareStyle(color) {
     return {
-      width: 100,
-      height: 80,
+      width: 150,
+      height: 120,
       backgroundColor: color,
     };
   }
@@ -113,11 +113,10 @@ export default class Accountscreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: 'white',
-    //alignItems:'center'
   },
   firstRow: {
+    marginTop: 50,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
