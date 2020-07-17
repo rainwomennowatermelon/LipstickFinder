@@ -15,7 +15,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from '../style/Styles';
 
-var gender = ["male", "female"];
+var gender = ["male", "female", "others"];
 var kind = ["Lipstick", "Lip glaze"];
 var texture = ["Glossy", "Mattle"];
 var color = ["Red", "Pink", "Orange"];

@@ -10,11 +10,13 @@ import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const URLS = {
-  PROFILE: 'http://124.156.143.125:5000/updateProfile',
+  UPPROFILEINFO: 'http://124.156.143.125:5000/updateProfileInfo',
+  UPPROFILEIMAGE: 'http://124.156.143.125:5000/updateProfileImage',
   USERINFO: 'http://124.156.143.125:5000/getUserInfo?',
-  PROFILEIMAGE: 'http://124.156.143.125:5000/getUserProfileImage?'
+  PROFILEIMAGE: 'http://124.156.143.125:5000/getUserProfileImage?',
 };
-const PROFILE_PATH = 'res/images/logo1.png';
+
+const PROFILE_PATH = 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg';
 
 export default class Accounteditscreen extends Component{
 
@@ -22,24 +24,26 @@ export default class Accounteditscreen extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Paul Allen',
-      userID: 1,
+      name: null,
+      userID: 5,
+      pwd: '12345678',
       gender: null,
-      profilePath: PROFILE_PATH,
+      profilePath: null,
       profileData: null,
       profileMime: null,
-      selectedIndex: 0,
+      selectedIndex: null,
+      ifPickImage: false, //check if the ImagePicker is used
     };
     this.updateIndex = this.updateIndex.bind(this);
   }
 
   // update index of gender button and save state
-  updateIndex = (selectedIndex) => {
-    this.setState({selectedIndex});
-    if (selectedIndex == 0){
-      this.state.gender='Male';
-    }else if (selectedIndex == 1){
-      this.state.gender='Female';
+  updateIndex = (index) => {
+    this.setState({selectedIndex: index});
+    if (index == 0){
+      this.state.gender='male';
+    }else if (index == 1){
+      this.state.gender='female';
     }else{
       this.state.gender='others';
     }
@@ -63,6 +67,7 @@ export default class Accounteditscreen extends Component{
           profilePath: image.path,
           profileData: image.data,
           profileMime: image.mime,
+          ifPickImage: true,
         });
         // console.log('received image', this.state.profileData);
       })
@@ -76,26 +81,47 @@ export default class Accounteditscreen extends Component{
     const profileData = this.state.profileData;
     const profileMime = this.state.profileMime;
     const userID = this.state.userID;
+    const pwd = this.state.pwd;
     const gender = this.state.gender;
     const name = this.state.name;
     // console.log("upload:", typeof profileMime, typeof userID, typeof profileData);
-    RNFetchBlob.fetch('POST', URLS.PROFILE, {
-      Authorization: 'Bearer access-token',
-      'Content-Type': 'application/octet-stream',
-    }, [
-      {name: 'file', type: profileMime, filename: 'userID.jpg', data: profileData},
-      {name: 'userID', data: String(userID)},
-      {name: 'gender', data: gender},
-      {name: 'name', data: name},
-    ]).then(res => {
-      this.setState({
-        profileData: res['data'],
-        profileMime: res['Content-Type'],
+    // console.log(this.state.ifPickImage);
+    console.log(userID);
+
+    if (this.state.ifPickImage) {
+      RNFetchBlob.fetch('POST', URLS.UPPROFILEIMAGE, {
+        Authorization: 'Bearer access-token',
+        'Content-Type': 'application/octet-stream',
+      }, [
+        {name: 'file', type: profileMime, filename: 'userID.jpg', data: profileData},
+        {name: 'userID', data: String(userID)},
+        {name: 'pwd', data: pwd}
+      ]).then(res => {
+        this.setState({
+          profileData: res['data'],
+          profileMime: res['Content-Type'],
+        });
+      }).catch(err => {
+        alert(err);
       });
-    }).catch(err => {
-      alert(err);
+      this.setState({ifPickImage: false})
+    }
+
+    fetch(URLS.UPPROFILEINFO, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        gender: gender,
+        userID: userID,
+        pwd: pwd,
+      })
     });
-  };
+
+};
 
   renderAvatar = () => {
     return (
@@ -122,39 +148,32 @@ export default class Accounteditscreen extends Component{
     )
   }
 
-  renderName = () =>{
-    return(
-      <Picker
-        selectedValue={this.state.gender}
-        style={{ height: 60}}
-        onValueChange={this.updateGender}
-      >
-        <Picker.Item label="Male" value="Male" />
-        <Picker.Item label="Female" value="Female" />
-        <Picker.Item label="Others" value="Others" />
-      </Picker>
-    );
-  }
 
   componentDidMount(){
-    fetch(URLS.USERINFO + `userID=${this.state.userID}`).then(response => response.json()).then(responseJ => {
+
+    const userID = this.state.userID;
+    const pwd = this.state.pwd;
+    // console.log("mount", userID, pwd);
+    fetch(URLS.USERINFO + `userID=${userID}&pwd=${pwd}`).then(response => response.json()).then(responseJ => {
       this.setState({
         name: responseJ['name'],
         userID: responseJ['ID'],
         gender: responseJ['gender'],
       });
-      if (this.state.gender == 'Male'){
-        this.state.selectedIndex = 0;
-      }else if (this.state.gender == 'Female'){
-        this.state.selectedIndex = 1;
+      const gender = this.state.gender;
+      if (gender == 'male'){
+        this.setState({selectedIndex: 0});
+      }else if (gender == 'female'){
+        this.setState({selectedIndex: 1});
       }else{
-        this.state.selectedIndex = 2;
+        this.setState({selectedIndex: 2});
       }
     }).catch(error => {
       console.error(error);
     });
 
-    RNFetchBlob.fetch('GET', URLS.PROFILEIMAGE + `userID=${this.state.userID}`, {
+
+    RNFetchBlob.fetch('GET', URLS.PROFILEIMAGE + `userID=${userID}&pwd=${pwd}`, {
       Authorization: 'Bearer access-token',
       'Content-Type': 'application/octet-stream',
     }).then(response => {
@@ -162,12 +181,18 @@ export default class Accounteditscreen extends Component{
           profileData: response['data'],
           profileMime: response['Content-Type'],
         });
-        // console.log(this.state.profileData);
+
+      if (this.state.profileData) { //display the image in DB
         this.setState({profilePath: `data:${this.state.profileMime};base64,${this.state.profileData}`});
+      }else{ //display the local image (default)
+        this.setState({profilePath: PROFILE_PATH});
+      }
+
     }).catch(err => {
       alert(err);
     });
   }
+
   render(){
     return (
       <>
