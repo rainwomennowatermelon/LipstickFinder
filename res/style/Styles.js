@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
     width: Dimensions.get('screen').width * 0.68,
-    minWidth: 200,
+    minWidth: 90,
     height: 50,
     backgroundColor: 'black',
     borderRadius: 25,
