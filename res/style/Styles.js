@@ -217,8 +217,9 @@ export const accountStyles = StyleSheet.create({
   },
   bottomView: {
     backgroundColor: 'white',
-    marginTop: 15,
-    height: 100,
+    height: 500,
+    justifyContent: 'center',
+    backgroundColor: '#F5F5F5'
   },
   inputText: {
     paddingVertical: 5,
@@ -245,7 +246,7 @@ export const accountStyles = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 45,
   },
   textSave: {
     alignSelf: 'center',
