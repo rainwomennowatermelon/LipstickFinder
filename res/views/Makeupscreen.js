@@ -65,6 +65,7 @@ export default class Makeupscreen extends Component {
       brands: [],
       series: [],
       lipsticks: [],
+      selectedColor: null,
       selectedBrand: null,
       selectedSeries: null,
       selectedLipstick: null,
@@ -97,7 +98,7 @@ export default class Makeupscreen extends Component {
   };
 
   processImage = () => {
-    const color = this.state.selectedLipstick['color'].replace('#', '');
+    const color = this.state.selectedColor.replace('#', '');
     console.log(color);
     const photoData = this.state.photoData;
     const photoMime = this.state.photoMime;
@@ -224,10 +225,14 @@ export default class Makeupscreen extends Component {
     }
   };
 
-  onLipstickSelected = (itemValue, itemIndex) => {
-    if (itemValue) {
-      this.setState({selectedLipstick: this.state.lipsticks[itemIndex]});
-      console.log('onLipstickSelected:', itemIndex, this.state.selectedLipstick);
+  onLipstickSelected = (lipstick_id, itemIndex) => {
+    console.log('onLipstickSelected:', lipstick_id);
+    if (lipstick_id) {
+      this.setState({
+        selectedColor: this.state.lipsticks[itemIndex]['color'],
+        selectedLipstick: lipstick_id,
+      });
+      console.log('onLipstickSelected:', this.state.selectedLipstick);
     }
   };
 
@@ -291,7 +296,7 @@ export default class Makeupscreen extends Component {
               this.onLipstickSelected(itemValue, itemIndex)
             }>
             {this.state.lipsticks.map((lipstick, index) => (
-              <Picker.Item key={index} label={lipstick.name} value={lipstick.color}/>
+              <Picker.Item key={index} label={lipstick.name} value={lipstick.lipstick_id}/>
             ))}
           </Picker>
         </View>
