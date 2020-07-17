@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Picker} from '@react-native-community/picker';
 import {getData, removeData, storeData} from '../utils/asyncstorage';
+import Toast from 'react-native-simple-toast';
 
 const URLS = {
   MAKEUP: 'http://124.156.143.125:5000/makeup?',
@@ -64,7 +65,6 @@ export default class Makeupscreen extends Component {
 
   processImage = () => {
     const color = this.state.selectedColor.replace('#', '');
-    console.log(color);
     const photoData = this.state.photoData;
     const photoMime = this.state.photoMime;
     RNFetchBlob.fetch('POST', URLS.MAKEUP, {
@@ -75,7 +75,7 @@ export default class Makeupscreen extends Component {
       {name: 'color', data: color},
     ]).progress((received, total) => {
       // listen to download progress event
-      console.log('progress:', received / total);
+      console.debug('progress:', received / total);
     }).then(res => {
       this.setState({
         photoUpdateData: res['data'],
@@ -99,25 +99,42 @@ export default class Makeupscreen extends Component {
     });
   };
 
+  saveImage = () => {
+    if (this.state.photoUpdateData) {
+      const d = new Date();
+      const path = RNFetchBlob.fs.dirs.DCIMDir + `/Images/LipstickFinder${d.getHours()}${d.getMinutes()}${d.getSeconds()}.jpg`;
+      RNFetchBlob.fs.writeFile(path, this.state.photoUpdateData, 'base64').then(res => {
+        if (res > 0) {
+          Toast.showWithGravity('Saved', Toast.SHORT, Toast.CENTER);
+        } else {
+          Toast.showWithGravity('Error', Toast.SHORT, Toast.CENTER);
+        }
+      });
+    }
+  };
+
   renderImage = () => {
     if (this.state.photoPath && this.state.selectedLipstick) {
-      console.log('renderImage:', this.state.photoPath, this.state.selectedLipstick);
+      console.debug('renderImage:', this.state.photoPath, this.state.selectedLipstick);
       return (
         <View style={styles.Container}>
           <TouchableOpacity onPress={this.chooseImage}>
             {this.state.photoUpdateData && !this.state.changePhoto
               ? <Image source={{uri: `data:${this.state.photoUpdateMime};base64,${this.state.photoUpdateData}`}} style={styles.imgWindow}/>
-              : <Image source={{uri: `data:${this.state.photoMime};base64,${this.state.photoData}`}} style={styles.imgWindow}/>
-            }
+              : <Image source={{uri: `data:${this.state.photoMime};base64,${this.state.photoData}`}} style={styles.imgWindow}/>}
           </TouchableOpacity>
           <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity onPress={this.clearImage} style={[styles.btnProcess, {width: 90, borderTopRightRadius: 0, borderBottomRightRadius: 0}]}>
+            <TouchableOpacity onPress={this.clearImage}
+                              style={[styles.btnProcess, {width: 90, borderTopRightRadius: 0, borderBottomRightRadius: 0}]}>
               <Text style={styles.btnText}>CLEAR</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.processImage} style={[styles.btnProcess, {width: 120, borderRadius: 0, marginHorizontal: 3}]}>
+            <TouchableOpacity onPress={this.processImage}
+                              style={[styles.btnProcess, {width: 120, borderRadius: 0, marginHorizontal: 3}]}>
               <Text style={styles.btnText}>PROCESS</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btnProcess, {width: 90, borderTopLeftRadius: 0, borderBottomLeftRadius: 0}]}>
+            <TouchableOpacity onPress={this.saveImage}
+                              disabled={this.state.photoUpdateData == null}
+                              style={[styles.btnProcess, {width: 90, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, backgroundColor: this.state.photoUpdateData == null ? 'dimgrey' : 'black'}]}>
               <Text style={styles.btnText}>SAVE</Text>
             </TouchableOpacity>
           </View>
@@ -135,7 +152,7 @@ export default class Makeupscreen extends Component {
   };
 
   componentDidMount = async () => {
-    console.log('componentDidMount');
+    console.debug('componentDidMount');
     this.setState({
       photoData: await getData('photoData'),
       photoPath: await getData('photoPath'),
@@ -149,7 +166,7 @@ export default class Makeupscreen extends Component {
   };
 
   onBrandSelected = (brand_id) => {
-    console.log('onBrandSelected:', brand_id);
+    console.debug('onBrandSelected:', brand_id);
     this.setState({selectedBrand: brand_id});
     fetch(
       URLS.SERIES + `brand_id=${brand_id}`,
@@ -161,7 +178,7 @@ export default class Makeupscreen extends Component {
   };
 
   onSeriesSelected = (series_id) => {
-    console.log('onSeriesSelected:', series_id);
+    console.debug('onSeriesSelected:', series_id);
     if (series_id) {
       this.setState({selectedSeries: series_id});
       const brand_id = this.state.selectedBrand;
@@ -176,13 +193,13 @@ export default class Makeupscreen extends Component {
   };
 
   onLipstickSelected = (lipstick_id, itemIndex) => {
-    console.log('onLipstickSelected:', lipstick_id);
+    console.debug('onLipstickSelected:', lipstick_id);
     if (lipstick_id) {
       this.setState({
         selectedColor: this.state.lipsticks[itemIndex]['color'],
         selectedLipstick: lipstick_id,
       });
-      console.log('onLipstickSelected:', this.state.selectedLipstick);
+      console.debug('onLipstickSelected:', this.state.selectedLipstick);
     }
   };
 

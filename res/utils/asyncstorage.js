@@ -7,22 +7,22 @@ export const storeData = async (key, value) => {
   }
   try {
     await AsyncStorage.setItem(key, storeValue);
-    console.log('store data:', key);
+    console.debug('store data:', key);
   } catch (e) {
-    console.log('saving error:', e);
+    console.debug('saving error:', e);
   }
 };
 
-export const getData = async (key, isObject) => {
+export const getData = async (key, isObject = false) => {
   try {
     const value = await AsyncStorage.getItem(key);
-    console.log('read data:', key);
+    console.debug('read data:', key);
     if (isObject) {
       return value != null ? JSON.parse(value) : null;
     }
     return value;
   } catch (e) {
-    console.log('reading error:', e);
+    console.debug('reading error:', e);
   }
 };
 
@@ -30,7 +30,7 @@ export const removeData = async (key) => {
   try {
     await AsyncStorage.removeItem(key);
   } catch (e) {
-    console.log('removing error:', e);
+    console.debug('removing error:', e);
   }
-  console.log('removing done:', key);
+  console.debug('removing done:', key);
 };
