@@ -26,11 +26,16 @@ export const getData = async (key, isObject = false) => {
   }
 };
 
-export const removeData = async (key) => {
+export const removeData = async (keys) => {
   try {
-    await AsyncStorage.removeItem(key);
+    if (!Array.isArray(keys)) {
+      keys = [keys];
+    }
+    for (var i = 0; i < keys.length; ++i) {
+      await AsyncStorage.removeItem(keys[i]);
+    }
   } catch (e) {
     console.debug('removing error:', e);
   }
-  console.debug('removing done:', key);
+  console.debug('removing done:', keys);
 };

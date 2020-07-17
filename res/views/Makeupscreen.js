@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Image, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from '../style/Styles';
 import {Icon} from 'react-native-elements';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -9,6 +9,7 @@ import {Picker} from '@react-native-community/picker';
 import {getData, removeData, storeData} from '../utils/asyncstorage';
 import Toast from 'react-native-simple-toast';
 
+
 const URLS = {
   MAKEUP: 'http://124.156.143.125:5000/makeup?',
   BRANDS: 'http://124.156.143.125:5000/lipstick-brand',
@@ -17,6 +18,11 @@ const URLS = {
 };
 
 const PICKER_MODE = 'dropdown';
+
+const COLORS = {
+  DARK: '#7028e4',
+  LIGHT: '#e5b2ca',
+};
 
 export default class Makeupscreen extends Component {
   constructor(props) {
@@ -35,6 +41,7 @@ export default class Makeupscreen extends Component {
       selectedBrand: null,
       selectedSeries: null,
       selectedLipstick: null,
+      loading: false,
     };
   }
 
@@ -64,6 +71,7 @@ export default class Makeupscreen extends Component {
   };
 
   processImage = () => {
+    this.setState({loading: true});
     const color = this.state.selectedColor.replace('#', '');
     const photoData = this.state.photoData;
     const photoMime = this.state.photoMime;
@@ -73,14 +81,12 @@ export default class Makeupscreen extends Component {
     }, [
       {name: 'file', type: photoMime, filename: 'filename.jpg', data: photoData},
       {name: 'color', data: color},
-    ]).progress((received, total) => {
-      // listen to download progress event
-      console.debug('progress:', received / total);
-    }).then(res => {
+    ]).then(res => {
       this.setState({
         photoUpdateData: res['data'],
         photoUpdateMime: res['Content-Type'],
         changePhoto: false,
+        loading: false,
       });
     }).catch(err => {
       alert(err);
@@ -88,9 +94,7 @@ export default class Makeupscreen extends Component {
   };
 
   clearImage = () => {
-    removeData('photoData');
-    removeData('photoPath');
-    removeData('photoMime');
+    removeData(['photoData', 'photoPath', 'photoMime']);
     this.setState({
       photoData: null,
       photoPath: null,
@@ -130,7 +134,9 @@ export default class Makeupscreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={this.processImage}
                               style={[styles.btnProcess, {width: 120, borderRadius: 0, marginHorizontal: 3}]}>
-              <Text style={styles.btnText}>PROCESS</Text>
+              {this.state.loading
+                ? <ActivityIndicator size='large' color='white'/>
+                : <Text style={styles.btnText}>PROCESS</Text>}
             </TouchableOpacity>
             <TouchableOpacity onPress={this.saveImage}
                               disabled={this.state.photoUpdateData == null}
@@ -211,7 +217,7 @@ export default class Makeupscreen extends Component {
      * purple-green: {['#8360c3', '#2ebf91']}
      */
     return (
-      <LinearGradient colors={['#7028e4', '#e5b2ca']} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.MakeupContainer}>
+      <LinearGradient colors={[COLORS.DARK, COLORS.LIGHT]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.MakeupContainer}>
 
         <View style={styles.PickerContainer}>
           <View style={styles.PickerLabel}>
@@ -256,6 +262,7 @@ export default class Makeupscreen extends Component {
         </View>
 
         {this.renderImage()}
+
       </LinearGradient>
     );
   }
