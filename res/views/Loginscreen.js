@@ -8,6 +8,7 @@ import {
     LayoutAnimation,
 } from 'react-native';
 import {styles} from '../style/Styles.js';
+import {getData, removeData, storeData} from '../utils/asyncstorage';
 
 export default class Loginscreen extends Component {
 
@@ -73,6 +74,9 @@ export default class Loginscreen extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.result == "True") {
+                    storeData("email", email);
+                    storeData("password", password);
+                    storeData("uid", responseJson.uid);
                     this.props.navigation.reset({
                         index: 0,
                         routes: [{name: 'Root'}],

@@ -14,6 +14,7 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
 import {styles} from '../style/Styles';
+import {getData, removeData, storeData} from '../utils/asyncstorage';
 
 var gender = ["male", "female", "others"];
 var kind = ["Lipstick", "Lip glaze"];
@@ -24,8 +25,6 @@ export default class Questionnairescreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: this.props.route.params.email,
-            password: this.props.route.params.password,
             isSelected: false,
             genderSelected: [],
             kindSelected: [],
@@ -146,9 +145,9 @@ export default class Questionnairescreen extends Component {
         return colorUpload;
     };
 
-    uploadQuestionaire = () => {
-        const {email} = this.state;
-        const {password} = this.state;
+    uploadQuestionaire = async() => {
+        let email = await getData("email");
+        let password = await getData("password");
 
         let uploadGender = this.setGener();
         let uploadKind = this.setKind();

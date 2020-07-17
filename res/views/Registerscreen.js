@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {styles} from '../style/Styles.js';
+import {encrypt} from '../utils/security.js';
+import {getData, removeData, storeData} from '../utils/asyncstorage';
 
 export default class Registerscreen extends Component {
     constructor(props) {
@@ -45,8 +47,9 @@ export default class Registerscreen extends Component {
         const {email} = this.state;
         const {password} = this.state;
 
+        let uploadPassword = encrypt(email, password);
         console.log("email" + email);
-        console.log("password" + password);
+        console.log("password" + uploadPassword);
 
         fetch('http://124.156.143.125:5000/signUp', {
             method: 'POST',
@@ -56,12 +59,15 @@ export default class Registerscreen extends Component {
             },
             body: JSON.stringify({
                 email: email,
-                password: password,
+                password: uploadPassword,
             })
         })
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.result == "True") {
+                    storeData("email", email);
+                    storeData("password", uploadPassword);
+                    storeData("uid", responseJson.uid);
                     this.props.navigation.navigate('Questionnaire', {
                         email: email,
                         password: password
@@ -76,11 +82,38 @@ export default class Registerscreen extends Component {
             });
     }
 
-    onTestNextButtonPress() {
-        this.props.navigation.navigate('Questionnaire', {
-            email: "qiaosj@connect.hku.hk",
-            password: "qsj12345",
-        });
+    onTestNextButtonPress = async() =>{
+        var email = "qiaosj@connect.hku.hk";
+        var password = "qsj12345";
+        let uploadpassword = encrypt(email, password);
+        console.log("email" + email);
+        console.log("password" + uploadpassword);
+        console.log(typeof(email));
+        console.log(typeof(password));
+        console.log(!(email instanceof String));
+        console.log(!(password instanceof String));
+
+
+        storeData("email", email);
+        storeData("password", password);
+
+        let testemail = await getData("email");
+        let testpassword = await getData("password");
+
+        console.log(testemail);
+        console.log(testpassword);
+
+
+        console.log(typeof(email));
+        console.log(typeof(password));
+
+        removeData("email");
+        removeData("password");
+        
+        // this.props.navigation.navigate('Questionnaire', {
+        //     email: "qiaosj@connect.hku.hk",
+        //     password: "qsj12345",
+        // });
     }
 
     validate_email() {
