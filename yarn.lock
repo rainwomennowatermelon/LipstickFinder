@@ -1048,13 +1048,6 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/picker/-/picker-1.6.5.tgz#9489fdb6d0b4b5877491101e0c3185ea9511d1aa"
   integrity sha512-mwt0sBaFdURJWkq6wFf2BrYh7fzB1CKK4/gx20zmDYDmahvk3CVUQVlkINDDyXE9m0lYZ9V8rBZBBAJy9W3GkQ==
 
-"@react-native-community/push-notification-ios@^1.2.2":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.3.0.tgz#349095f5dda42f59501316c7ef7896adb8c2a1db"
-  integrity sha512-fXLtDYsDv8CZIF/1pnrLyKv68X1VVgsWQTVdxA4UeYPAGP9OU4XdShD1TsPFWIF5VgabNrnmKl1uEDLw3X+6jA==
-  dependencies:
-    invariant "^2.2.4"
-
 "@react-navigation/bottom-tabs@^5.5.2":
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.6.1.tgz#f4aa23913a0c26ec3dd4dc268cd83e3d0e5f4dc4"
@@ -1343,6 +1336,11 @@ add-dom-event-listener@^1.1.0:
   integrity sha512-WCxx1ixHT0GQU9hb0KI/mhgRQhnU+U3GvwY6ZvVjYq8rsihIGoaIOUbY0yMPBxLH5MDtr0kz3fisWGNcbWW7Jw==
   dependencies:
     object-assign "4.x"
+
+aes-js@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/aes-js/-/aes-js-3.1.2.tgz#db9aabde85d5caabbfc0d4f2a4446960f627146a"
+  integrity sha512-e5pEa2kBnBOgR4Y/p20pskXI74UEz7de8ZGVo58asOtvSVG5YAbJeELPZxOmt+Bnz3rX753YKhfIn4X4l1PPRQ==
 
 ajv@^6.10.0, ajv@^6.10.2, ajv@^6.5.5:
   version "6.12.3"
@@ -5880,6 +5878,11 @@ jetifier@^1.6.2:
   resolved "https://registry.yarnpkg.com/jetifier/-/jetifier-1.6.6.tgz#fec8bff76121444c12dc38d2dad6767c421dab68"
   integrity sha512-JNAkmPeB/GS2tCRqUzRPsTOHpGDah7xP18vGJfIjZC+W2sxEHbxgJxetIjIqhjQ3yYbYNEELkM/spKLtwoOSUQ==
 
+js-sha256@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/js-sha256/-/js-sha256-0.9.0.tgz#0b89ac166583e91ef9123644bd3c5334ce9d0966"
+  integrity sha512-sga3MHh9sgQN2+pJ9VYZ+1LPwXOxuBJBA5nrR5/ofPfuiJBE2hnjsaN8se8JznOmGLN2p49Pe5U/ttafcs/apA==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -8142,13 +8145,6 @@ react-native-picker@^4.3.7:
   resolved "https://registry.yarnpkg.com/react-native-picker/-/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"
   integrity sha1-mELoxi/w2LZ26VFNn5FyQTwFGKg=
 
-react-native-push-notification@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-4.0.0.tgz#85c795abef6ddbdbed039ca6a5ffcedc0f36d0dd"
-  integrity sha512-PwFxGupwlAKc8qz8nMhX9U+/En/kiEH/1cyuKvUQdMa+tx96xZ/t81RTyOkkehkx4lbsI+Tv2F+D+fJV9IQb+A==
-  dependencies:
-    "@react-native-community/push-notification-ios" "^1.2.2"
-
 react-native-ratings@^7.2.0:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-7.2.0.tgz#8523e98868470855ec1d2feb112e466e17a1fd9f"
@@ -8173,6 +8169,11 @@ react-native-screens@^2.8.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.9.0.tgz#ead2843107ba00fee259aa377582e457c74f1f3b"
   integrity sha512-5MaiUD6HA3nzY3JbVI8l3V7pKedtxQF3d8qktTVI0WmWXTI4QzqOU8r8fPVvfKo3MhOXwhWBjr+kQ7DZaIQQeg==
+
+react-native-simple-toast@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-1.1.2.tgz#007de57e21986e811b4bbc2d3a6de949c0221df9"
+  integrity sha512-p13p6Db9viLBxbAlicVLD6CcrbkmqQoEjP20vY+SxbO3y5cdmY0AOn/FiMC+iuC4eQxk0SFeJm4PFRWby/ntyg==
 
 react-native-status-bar-height@^2.5.0:
   version "2.5.0"

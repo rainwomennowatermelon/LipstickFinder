@@ -2,42 +2,41 @@ import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
 var devwidth = Dimensions.get('window').width;
-var devheight = Dimensions.get('window').height;
 const PICKER_BORDER_RADIUS = 5;
 
 export const styles = StyleSheet.create({
   Container: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  ViewForHeader:{
-    width:devwidth-30,
-    height:50,
-    alignItems:'center',
-    justifyContent:'center',
-    margin:5
+  ViewForHeader: {
+    width: devwidth - 30,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
   },
-  Header:{
-    fontSize:25
+  Header: {
+    fontSize: 25,
   },
-  ViewForAccountInput:{
-    width:devwidth-100,
-    height:60,
-    alignItems:'center',
-    justifyContent:'center',
-    margin:5
+  ViewForAccountInput: {
+    width: devwidth - 100,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
   },
-  AccountInput:{
-    width:devwidth-90,
-    height:40,
-    borderColor:'gray',
-    borderWidth:1,
-    justifyContent:'center',
-    alignItems:'center',
-    textAlign:'center'
+  AccountInput: {
+    width: devwidth - 90,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
   },
-  AccountButton:{
+  AccountButton: {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
@@ -48,16 +47,16 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: 10,
   },
-  AccountButtonText:{
-    fontSize:20,
-    color:'white',
-    fontWeight:'bold'
+  AccountButtonText: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
   },
-  RegisterReminder:{
-    width:devwidth-100,
-    height:20,
-    fontSize:15,
-    borderColor:'gray',
+  RegisterReminder: {
+    width: devwidth - 100,
+    height: 20,
+    fontSize: 15,
+    borderColor: 'gray',
   },
   // FindScreen
   upperContainer: {
@@ -81,8 +80,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imgWindow: {
-    width: Dimensions.get('screen').width * 0.68,
-    height: Dimensions.get('screen').width * 0.68,
+    width: devwidth * 0.68,
+    height: devwidth * 0.68,
     minWidth: 200,
     minHeight: 200,
   },
@@ -90,7 +89,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
-    width: Dimensions.get('screen').width * 0.68,
+    width: devwidth * 0.68,
     minWidth: 90,
     height: 50,
     backgroundColor: 'black',
@@ -111,18 +110,17 @@ export const styles = StyleSheet.create({
   btnChoose: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: Dimensions.get('screen').width * 0.68,
-    height: Dimensions.get('screen').width * 0.68,
+    width: devwidth * 0.68,
+    height: devwidth * 0.68,
     minWidth: 200,
     minHeight: 200,
-    borderRadius: Dimensions.get('screen').width * 0.34,
+    borderRadius: devwidth * 0.34,
     backgroundColor: 'rgba(255,255,255,0.5)',
   },
   // makeup
   MakeupContainer: {
     flex: 1,
     padding: 20,
-    marginTop: 20,
   },
   PickerContainer: {
     flexDirection: 'row',
@@ -156,13 +154,13 @@ export const styles = StyleSheet.create({
   },
 
   checkboxContainer: {
-    width:(devwidth-50)/2,
-    flexDirection: "row",
+    width: (devwidth - 50) / 2,
+    flexDirection: 'row',
     marginTop: 5,
     marginBottom: 5,
   },
   checkbox: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   label: {
     margin: 8,
@@ -172,10 +170,10 @@ export const styles = StyleSheet.create({
     fontSize: 32,
   },
   choices: {
-    width:devwidth-30,
-    flexDirection: "column",
-    alignItems:'flex-start',
-    justifyContent:'flex-start',
+    width: devwidth - 30,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
     marginTop: 5,
     marginBottom: 5,
   },
@@ -184,16 +182,16 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 15,
   },
-  questioncontainer:{
+  questioncontainer: {
     flex: 1,
-    width:devwidth*0.75,
+    width: devwidth * 0.75,
     marginTop: 10,
     marginBottom: 10,
   },
-  selection:{
+  selection: {
     marginTop: 10,
     marginBottom: 10,
-  }
+  },
 });
 
 export const accountStyles = StyleSheet.create({
@@ -219,7 +217,7 @@ export const accountStyles = StyleSheet.create({
     backgroundColor: 'white',
     height: 500,
     justifyContent: 'center',
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#F5F5F5',
   },
   inputText: {
     paddingVertical: 5,

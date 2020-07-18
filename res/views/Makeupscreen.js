@@ -7,8 +7,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Picker} from '@react-native-community/picker';
 import {getData, removeData, storeData} from '../utils/asyncstorage';
+import {COLORS} from '../style/Colors';
 import Toast from 'react-native-simple-toast';
-
 
 const URLS = {
   MAKEUP: 'http://124.156.143.125:5000/makeup?',
@@ -18,11 +18,6 @@ const URLS = {
 };
 
 const PICKER_MODE = 'dropdown';
-
-const COLORS = {
-  DARK: '#7028e4',
-  LIGHT: '#e5b2ca',
-};
 
 export default class Makeupscreen extends Component {
   constructor(props) {
@@ -140,7 +135,7 @@ export default class Makeupscreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={this.saveImage}
                               disabled={this.state.photoUpdateData == null}
-                              style={[styles.btnProcess, {width: 90, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, backgroundColor: this.state.photoUpdateData == null ? 'dimgrey' : 'black'}]}>
+                              style={[styles.btnProcess, {width: 90, borderTopLeftRadius: 0, borderBottomLeftRadius: 0, backgroundColor: this.state.photoUpdateData == null ? COLORS.DARK_GREY : 'black'}]}>
               <Text style={styles.btnText}>SAVE</Text>
             </TouchableOpacity>
           </View>
@@ -210,14 +205,8 @@ export default class Makeupscreen extends Component {
   };
 
   render() {
-    /***
-     * blue-pink: {['#E0C3FC', '#A9C9FF']}, {['#d492fe', '#95b5ff']}
-     * blue-orange: {['#a6c0fe', '#f68084']}
-     * purple-pink: {['#7028e4', '#e5b2ca']}, {['#654ea3', '#eaafc8']}, {['#8929ad', '#e5b2ca']}
-     * purple-green: {['#8360c3', '#2ebf91']}
-     */
     return (
-      <LinearGradient colors={[COLORS.DARK, COLORS.LIGHT]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.MakeupContainer}>
+      <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.MakeupContainer}>
 
         <View style={styles.PickerContainer}>
           <View style={styles.PickerLabel}>

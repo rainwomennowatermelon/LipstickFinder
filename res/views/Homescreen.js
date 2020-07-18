@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
+import {COLORS} from '../style/Colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class Homescreen extends Component {
 
@@ -42,31 +44,29 @@ export default class Homescreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.recommend}>Daily Recommendation</Text>
+      <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.container}>
         <ScrollView>
-          {this.state.lipstickInfos.map((l, index) => (
-            <ListItem
-              key={index}
-              leftIcon={{
-                name: 'square-full',
-                type: 'font-awesome-5',
-                color: l.color,
-              }}
-              rightIcon={{
-                name: l.like ? 'heart' : 'heart-o',
-                type: 'font-awesome',
-                color: l.like ? '#d13d3d' : 'grey',
-              }}
-              title={l.brand}
-              subtitle={l.series + ': ' + l.name}
-              bottomDivider
-              onPress={() => this.lipstickInfoPress(index)}
-              onLongPress={() => this.updateLike(index)}
-            />
-          ))}
+          <View style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={styles.recommend}>Daily Recommendation</Text>
+          </View>
+          <View>
+            {this.state.lipstickInfos.map((l, index) => (
+              <ListItem
+                containerStyle={{borderRadius: 10}}
+                style={styles.row}
+                key={index}
+                leftIcon={{name: 'square-full', type: 'font-awesome-5', color: l.color}}
+                rightIcon={{name: l.like ? 'heart' : 'heart-o', type: 'font-awesome', color: l.like ? COLORS.HEART : 'grey'}}
+                title={l.brand}
+                subtitle={l.series + ': ' + l.name}
+                bottomDivider
+                onPress={() => this.updateLike(index)}
+                onLongPress={() => this.lipstickInfoPress(index)}
+              />
+            ))}
+          </View>
         </ScrollView>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -74,14 +74,8 @@ export default class Homescreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
-    justifyContent: 'center',
-  },
-  row: {
-    left: 25,
-    justifyContent:'center',
     alignItems: 'center',
-    padding: 10,
+    justifyContent: 'center',
   },
   circle: {
     width: 60,
@@ -91,25 +85,13 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 10,
   },
-  button: {
-    justifyContent: 'center',
-    width: 60,
-    height: 60,
-    borderRadius: 60 / 2,
-  },
-  transparentSquare: {
-    width: 110,
-    height: 100,
-    backgroundColor: 'transparent',
-  },
-  lipstickName: {
-    padding: 12,
-    fontSize: 18,
+  row: {
+    marginBottom: 10,
   },
   recommend: {
-    flex: 1,
-    margin: 20,
-    fontSize: 26,
+    fontSize: 30,
     fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
   },
 });

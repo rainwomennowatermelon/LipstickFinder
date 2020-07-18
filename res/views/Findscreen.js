@@ -5,6 +5,7 @@ import {styles} from '../style/Styles';
 import {Icon, ListItem} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import RNFetchBlob from 'rn-fetch-blob';
+import {COLORS} from '../style/Colors';
 
 const PREDICT_URL = 'http://124.156.143.125:5000/predict';
 
@@ -47,16 +48,12 @@ export default class Findscreen extends Component {
       {
         Authorization: 'Bearer access-token',
         'Content-Type': 'application/octet-stream',
-      },
-      [
-        {
-          name: 'file',
-          filename: photo.fileName,
-          type: photo.type,
-          data: RNFetchBlob.wrap(photo.uri),
-        },
-      ],
-    ).then(res => {
+      }, [{
+        name: 'file',
+        filename: photo.fileName,
+        type: photo.type,
+        data: RNFetchBlob.wrap(photo.uri),
+      }]).then(res => {
       this.setState({
         lipsticks: res.json(),
       });
@@ -70,14 +67,10 @@ export default class Findscreen extends Component {
       return (
         <View style={styles.upperContainer}>
           <TouchableOpacity onPress={this.chooseImage}>
-            <Image
-              source={{uri: this.state.fileUri}}
-              style={styles.imgWindow}
+            <Image source={{uri: this.state.fileUri}} style={styles.imgWindow}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.processImage}
-            style={styles.btnProcess}>
+          <TouchableOpacity onPress={this.processImage} style={styles.btnProcess}>
             <Text style={styles.btnText}>PROCESS</Text>
           </TouchableOpacity>
         </View>
@@ -86,11 +79,7 @@ export default class Findscreen extends Component {
       return (
         <View style={styles.centerContainer}>
           <TouchableOpacity onPress={this.chooseImage} style={styles.btnChoose}>
-            <Icon
-              type={'font-awesome-5'}
-              name={'camera-retro'}
-              size={100}
-              color={'white'}
+            <Icon type={'font-awesome-5'} name={'camera-retro'} size={100} color={'white'}
             />
           </TouchableOpacity>
         </View>
@@ -100,28 +89,15 @@ export default class Findscreen extends Component {
 
   render() {
     return (
-      <LinearGradient
-        colors={['#43b7b8', '#8929ad']}
-        start={{x: 0, y: 0}}
-        end={{x: 0.8, y: 0.8}}
-        style={styles.Container}>
+      <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.Container}>
+
         {this.renderImage()}
 
         <View style={styles.bottomContainer}>
           <ScrollView>
             {this.state.lipsticks.map((l, index) => (
-              <ListItem
-                key={index}
-                chevron
-                leftIcon={{
-                  name: 'square-full',
-                  type: 'font-awesome-5',
-                  color: l.lipStickColor,
-                }}
-                title={l.brand}
-                subtitle={l.seriesName + l.lipStickName}
-                bottomDivider
-              />
+              <ListItem key={index} chevron title={l.brand} subtitle={l.seriesName + l.lipStickName} bottomDivider
+                        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: l.lipStickColor}}/>
             ))}
           </ScrollView>
         </View>
