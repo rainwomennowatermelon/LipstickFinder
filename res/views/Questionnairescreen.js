@@ -16,7 +16,7 @@ import CheckBox from '@react-native-community/checkbox';
 import {styles} from '../style/Styles';
 import {getData, removeData, storeData} from '../utils/asyncstorage';
 
-var gender = ["male", "female", "others"];
+var gender = ["male", "female"];
 var kind = ["Lipstick", "Lip glaze"];
 var texture = ["Glossy", "Mattle"];
 var color = ["Red", "Pink", "Orange"];
