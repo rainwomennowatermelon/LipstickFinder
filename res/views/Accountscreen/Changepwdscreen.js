@@ -15,6 +15,8 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { styles, accountStyles } from '../../style/Styles.js';
 import { Header } from './AccountHeader.js';
+import {getData, storeData} from '../../utils/asyncstorage';
+import {encrypt} from '../../utils/security.js';
 
 const URLS = {
   RESETPWD: 'http://124.156.143.125:5000/resetPwd',
@@ -32,8 +34,9 @@ export default class Changepwdscreen extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        userID: 1,
-        pwd: 'qiaoshunjie',
+        userID: null,
+        pwd: null,
+        email: null,
         newPassword: "",
         currentPassword: "",
         confirmPassword: ""
@@ -43,19 +46,29 @@ export default class Changepwdscreen extends Component {
   //check whether the input password is more than 8 digits
   validate_password = (password) => {
     const passwordValid = password.length >= 8;
-    console.log(password)
-    console.log(passwordValid)
     return passwordValid;
   }
 
   // reset password
-  changePassword() {
-      const userID = this.state.userID;
-      const pwd = this.state.pwd;
+  changePassword = async() => {
+
+      let userID = await getData("uid");
+      let pwd = await getData("password");
+      let email = await getData("email");
+      this.setState({userID: userID, pwd: pwd, email: email});
+      // const userID = this.state.userID;
+      // const pwd = this.state.pwd;
       const currentPassword = this.state.currentPassword;
       const newPassword = this.state.newPassword;
+      // const email = this.state.email;
 
-      if (pwd == currentPassword){ //validate user
+      const encryptCurrentPassword = encrypt(email, currentPassword);
+      const encryptNewPassword = encrypt(email, newPassword);
+
+      console.log("=============");
+      console.log(userID, pwd, encryptCurrentPassword, encryptNewPassword, newPassword);
+
+      if (pwd == encryptCurrentPassword){ //validate user
         fetch(URLS.RESETPWD, {
           method: 'POST',
           headers: {
@@ -64,10 +77,14 @@ export default class Changepwdscreen extends Component {
           },
           body: JSON.stringify({
             userID: userID,
-            pwd: currentPassword,
-            newPwd: newPassword,
+            pwd: encryptCurrentPassword,
+            newPwd: encryptNewPassword,
           })
         });
+        alert('Reset Success!')
+        storeData("password", encryptNewPassword);
+        this.setState({currentPassword: '', newPassword: '', confirmPassword: ''});
+
       }else{
         alert('False Current Password');
       }
@@ -75,7 +92,7 @@ export default class Changepwdscreen extends Component {
 
   onbtnSavePress() {
       const passwordValid = this.validate_password(this.state.newPassword);
-      console.log(passwordValid);
+      // console.log(passwordValid);
       if (this.state.currentPassword.trim().length == 0) {
           alert('Please enter current password');
       } else if (this.state.newPassword.trim().length == 0) {

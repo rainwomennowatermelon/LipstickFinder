@@ -8,6 +8,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-community/async-storage';
+import {getData} from '../../utils/asyncstorage';
 
 const URLS = {
   UPPROFILEINFO: 'http://124.156.143.125:5000/updateProfileInfo',
@@ -25,8 +26,8 @@ export default class Accounteditscreen extends Component{
     super(props);
     this.state = {
       name: null,
-      userID: 5,
-      pwd: '12345678',
+      userID: null,
+      pwd: null,
       gender: null,
       profilePath: null,
       profileData: null,
@@ -78,48 +79,48 @@ export default class Accounteditscreen extends Component{
 
   //update user profile image, name, gender when press "save" button
   uploadProfile = () => {
-    const profileData = this.state.profileData;
-    const profileMime = this.state.profileMime;
-    const userID = this.state.userID;
-    const pwd = this.state.pwd;
-    const gender = this.state.gender;
-    const name = this.state.name;
-    // console.log("upload:", typeof profileMime, typeof userID, typeof profileData);
-    // console.log(this.state.ifPickImage);
-    console.log(userID);
+      const profileData = this.state.profileData;
+      const profileMime = this.state.profileMime;
+      const userID = this.state.userID;
+      const pwd = this.state.pwd;
+      const gender = this.state.gender;
+      const name = this.state.name;
+      // console.log("upload:", typeof profileMime, typeof userID, typeof profileData);
+      // console.log(this.state.ifPickImage);
+      console.log(userID);
 
-    if (this.state.ifPickImage) {
-      RNFetchBlob.fetch('POST', URLS.UPPROFILEIMAGE, {
-        Authorization: 'Bearer access-token',
-        'Content-Type': 'application/octet-stream',
-      }, [
-        {name: 'file', type: profileMime, filename: 'userID.jpg', data: profileData},
-        {name: 'userID', data: String(userID)},
-        {name: 'pwd', data: pwd}
-      ]).then(res => {
-        this.setState({
-          profileData: res['data'],
-          profileMime: res['Content-Type'],
+      if (this.state.ifPickImage) {
+        RNFetchBlob.fetch('POST', URLS.UPPROFILEIMAGE, {
+          Authorization: 'Bearer access-token',
+          'Content-Type': 'application/octet-stream',
+        }, [
+          {name: 'file', type: profileMime, filename: 'userID.jpg', data: profileData},
+          {name: 'userID', data: String(userID)},
+          {name: 'pwd', data: pwd}
+        ]).then(res => {
+          this.setState({
+            profileData: res['data'],
+            profileMime: res['Content-Type'],
+          });
+        }).catch(err => {
+          alert(err);
         });
-      }).catch(err => {
-        alert(err);
-      });
-      this.setState({ifPickImage: false})
-    }
+        this.setState({ifPickImage: false})
+      }
 
-    fetch(URLS.UPPROFILEINFO, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        gender: gender,
-        userID: userID,
-        pwd: pwd,
-      })
-    });
+      fetch(URLS.UPPROFILEINFO, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          gender: gender,
+          userID: userID,
+          pwd: pwd,
+        })
+      });
 
 };
 
@@ -149,11 +150,17 @@ export default class Accounteditscreen extends Component{
   }
 
 
-  componentDidMount(){
+  async componentDidMount(){
+    const userID = await getData("uid");
+    const pwd = await getData("password");
 
-    const userID = this.state.userID;
-    const pwd = this.state.pwd;
-    // console.log("mount", userID, pwd);
+    this.setState({userID: userID, pwd: pwd});
+
+    // const userID = this.state.userID;
+    // const pwd = this.state.pwd;
+    // console.log("const", userID, pwd);
+    // console.log("state", this.state.userID, this.state.pwd);
+
     fetch(URLS.USERINFO + `userID=${userID}&pwd=${pwd}`).then(response => response.json()).then(responseJ => {
       this.setState({
         name: responseJ['name'],
@@ -181,12 +188,13 @@ export default class Accounteditscreen extends Component{
           profileData: response['data'],
           profileMime: response['Content-Type'],
         });
-
-      if (this.state.profileData) { //display the image in DB
-        this.setState({profilePath: `data:${this.state.profileMime};base64,${this.state.profileData}`});
-      }else{ //display the local image (default)
+      // console.log(response.text());
+      if (response.text() == "No image"){
         this.setState({profilePath: PROFILE_PATH});
       }
+      else{ //display the image in DB
+        this.setState({profilePath: `data:${this.state.profileMime};base64,${this.state.profileData}`});
+      } 
 
     }).catch(err => {
       alert(err);
