@@ -59,8 +59,8 @@ export default class Loginscreen extends Component {
     verify_account = () => {
         const {email} = this.state;
         const {password} = this.state;
-		
-		let uploadPassword = encrypt(email, password);
+
+        let uploadPassword = encrypt(email, password);
 
         fetch('http://124.156.143.125:5000/checkLoginInfo', {
             method: 'POST',
@@ -73,79 +73,79 @@ export default class Loginscreen extends Component {
                 password: uploadPassword,
             })
         })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                if (responseJson.result == "True") {
-                    storeData("email", email);
-                    storeData("password", uploadPassword);
-                    storeData("uid", responseJson.uid);
-                    this.props.navigation.reset({
-                        index: 0,
-                        routes: [{name: 'Root'}],
-                    });
-                } else {
-                    LayoutAnimation.easeInEaseOut();
-                    Alert.alert('False Email or Password');
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        .then((response) => response.json())
+         .then((responseJson) => {
+            if (responseJson.result == "True") {
+                storeData("email", email);
+                storeData("password", uploadPassword);
+                storeData("uid", responseJson.uid);
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{name: 'Root'}],
+                });
+            } else {
+                LayoutAnimation.easeInEaseOut();
+                Alert.alert('False Email or Password');
+            }
+        })
+         .catch((error) => {
+            console.error(error);
+        });
     }
 
     render() {
         return (
-            <View style={styles.Container}>
-                <View style={styles.ViewForHeader}>
-                    <Text style={styles.Header}>
-                        Welcome to Lipstick Finder
-                    </Text>
-                </View>
+          <View style={styles.Container}>
+              <View style={styles.ViewForHeader}>
+                  <Text style={styles.Header}>
+                      Welcome to Lipstick Finder
+                  </Text>
+              </View>
 
-                <View style={styles.ViewForAccountInput}>
-                    <TextInput
-                        placeholder="Please Input Email"
-                        style={styles.AccountInput}
-                        onChangeText={(email) => this.setState({email})}
-                    />
-                </View>
+              <View style={styles.ViewForAccountInput}>
+                  <TextInput
+                    placeholder="Please Input Email"
+                    style={styles.AccountInput}
+                    onChangeText={(email) => this.setState({email})}
+                  />
+              </View>
 
-                <View style={styles.ViewForAccountInput}>
-                    <TextInput
-                        placeholder="Please Input Password"
-                        style={styles.AccountInput}
-                        secureTextEntry={true}
-                        onChangeText={(password) => this.setState({password})}
-                    />
-                </View>
+              <View style={styles.ViewForAccountInput}>
+                  <TextInput
+                    placeholder="Please Input Password"
+                    style={styles.AccountInput}
+                    secureTextEntry={true}
+                    onChangeText={(password) => this.setState({password})}
+                  />
+              </View>
 
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.AccountButton}
-                    onPress={this.onLoginButtonPress.bind(this)}>
-                    <Text style={styles.AccountButtonText}>
-                        Login
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.AccountButton}
-                    onPress={this.onRegisterButtonPress.bind(this)}>
-                    <Text style={styles.AccountButtonText}>
-                        Register
-                    </Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.AccountButton}
+                onPress={this.onLoginButtonPress.bind(this)}>
+                  <Text style={styles.AccountButtonText}>
+                      Login
+                  </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.AccountButton}
+                onPress={this.onRegisterButtonPress.bind(this)}>
+                  <Text style={styles.AccountButtonText}>
+                      Register
+                  </Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.AccountButton}
-                    onPress={this.onTestFunctionsButtonPress.bind(this)}>
-                    <Text style={styles.AccountButtonText}>
-                        Test Functions
-                    </Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.AccountButton}
+                onPress={this.onTestFunctionsButtonPress.bind(this)}>
+                  <Text style={styles.AccountButtonText}>
+                      Test Functions
+                  </Text>
+              </TouchableOpacity>
 
-            </View>
+          </View>
         )
     }
 }

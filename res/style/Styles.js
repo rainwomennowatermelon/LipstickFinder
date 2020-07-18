@@ -120,7 +120,8 @@ export const styles = StyleSheet.create({
   // makeup
   MakeupContainer: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 40,
   },
   PickerContainer: {
     flexDirection: 'row',

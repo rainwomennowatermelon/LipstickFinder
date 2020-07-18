@@ -86,7 +86,6 @@ export default class Accountviewscreen extends Component {
       subtitle={item.subtitle}
       bottomDivider
       chevron
-      onPress
     />
   )
 

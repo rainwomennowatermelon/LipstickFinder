@@ -53,6 +53,7 @@ export default class Homescreen extends Component {
             {this.state.lipstickInfos.map((l, index) => (
               <ListItem
                 containerStyle={{borderRadius: 10}}
+                underlayColor='transparent'
                 style={styles.row}
                 key={index}
                 leftIcon={{name: 'square-full', type: 'font-awesome-5', color: l.color}}
