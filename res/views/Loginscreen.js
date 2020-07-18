@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {styles} from '../style/Styles.js';
 import {getData, removeData, storeData} from '../utils/asyncstorage';
+import {encrypt} from '../utils/security.js';
 
 export default class Loginscreen extends Component {
 
@@ -58,7 +59,8 @@ export default class Loginscreen extends Component {
     verify_account = () => {
         const {email} = this.state;
         const {password} = this.state;
-        let formData = new FormData();
+		
+		let uploadPassword = encrypt(email, password);
 
         fetch('http://124.156.143.125:5000/checkLoginInfo', {
             method: 'POST',
@@ -68,14 +70,14 @@ export default class Loginscreen extends Component {
             },
             body: JSON.stringify({
                 email: email,
-                password: password,
+                password: uploadPassword,
             })
         })
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson.result == "True") {
                     storeData("email", email);
-                    storeData("password", password);
+                    storeData("password", uploadPassword);
                     storeData("uid", responseJson.uid);
                     this.props.navigation.reset({
                         index: 0,
