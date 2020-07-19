@@ -194,7 +194,7 @@ export default class Accounteditscreen extends Component{
       }
       else{ //display the image in DB
         this.setState({profilePath: `data:${this.state.profileMime};base64,${this.state.profileData}`});
-      } 
+      }
 
     }).catch(err => {
       alert(err);
@@ -228,7 +228,7 @@ export default class Accounteditscreen extends Component{
                 buttonGroup={{
                   buttons: ['Male', 'Female', 'others'],
                   containerStyle: {height: 40},
-                  selectedButtonStyle: {backgroundColor: '#CA7476'},
+                  selectedButtonStyle: {backgroundColor: 'black'},
                   selectedIndex: this.state.selectedIndex,
                   onPress: (index) => this.updateIndex(index),
                 }}

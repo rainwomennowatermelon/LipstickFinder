@@ -10,13 +10,14 @@ import Accounteditscreen from '../views/Accountscreen/Accounteditscreen.js';
 import Lipstickinforoot from '../navigation/Lipstickinforoot.js';
 import Changepwdscreen from '../views/Accountscreen/Changepwdscreen.js';
 import Accountaboutscreen from '../views/Accountscreen/Accountaboutscreen.js';
+import Icon from 'react-native-vector-icons/Feather';
 
 const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
   return (
     <SafeAreaView
-      style={{ flex: 1, height: '100%', backgroundColor: '#FFFFFF' }}
+      style={{ flex: 1, height: '100%'}}
       forceInset={{ top: 'always', horizontal: 'never' }}
     >
       <View
@@ -24,16 +25,21 @@ function CustomDrawerContent(props) {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          justifyContent: "space-around",
+          height: 200,
         }}
       >
         <Image
           source={require('../images/logo.png')}
-          style={{ width: '70%'}}
+          style={{ width: '75%'}}
           resizeMode="contain"
         />
       </View>
-      <View style={{ marginTop: -20, marginLeft: 10 }}>
+      <View
+        style={{
+          marginTop: -20,
+          height: 500,
+          backgroundColor: '#6991c7',
+        }}>
         <DrawerItemList {...props} />
       </View>
     </SafeAreaView>
@@ -48,23 +54,57 @@ export default class Accountroot extends Component {
         <Drawer.Navigator
           drawerContent={props => <CustomDrawerContent {...props} />}
           drawerContentOptions={{
-            activeTintColor: '#CA7476',
+            activeTintColor: 'black',
             activeBackgroundColor: 'transparent',
-            inactiveTintColor: '#101010',
+            inactiveTintColor: 'white',
             inactiveBackgroundColor: 'transparent',
-            backgroundColor: '#D9D8D8',
             labelStyle: {
-              fontSize: 15,
-              marginLeft: 0,
+              fontSize: 18,
             },
           }}
         >
 
-          <Drawer.Screen name="Likes" component={Lipstickinforoot} />
-          <Drawer.Screen name="Settings" component={Accounteditscreen} />
-          <Drawer.Screen name="Password" component={Changepwdscreen} />
-          <Drawer.Screen name="About us" component={Accountaboutscreen} />
-          <Drawer.Screen name="Privacy policy" component={Accounteditscreen} />
+          <Drawer.Screen
+            name="Likes"
+            component={Lipstickinforoot}
+            options={{drawerIcon: config =>
+              <Icon
+                size={25}
+                name={'file-text'}
+                style={{ color: 'white', marginLeft: 5 }}>
+              </Icon>}}
+          />
+          <Drawer.Screen
+            name="Profile"
+            component={Accounteditscreen}
+            options={{drawerIcon: config =>
+              <Icon
+                size={23}
+                name={'user'}
+                style={{ color: 'white', marginLeft: 5 }}>
+              </Icon>}}
+          />
+          <Drawer.Screen
+            name="Password"
+            component={Changepwdscreen}
+            options={{drawerIcon: config =>
+              <Icon
+                size={23}
+                name={'settings'}
+                style={{ color: 'white', marginLeft: 5 }}>
+              </Icon>}}
+          />
+          <Drawer.Screen
+            name="About us"
+            component={Accountaboutscreen}
+            options={{drawerIcon: config =>
+              <Icon
+                size={23}
+                name={'help-circle'}
+                style={{ color: 'white', marginLeft: 5 }}>
+              </Icon>}}
+          />
+
 
         </Drawer.Navigator>
 

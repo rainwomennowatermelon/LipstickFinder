@@ -17,6 +17,8 @@ import { styles, accountStyles } from '../../style/Styles.js';
 import { Header } from './AccountHeader.js';
 import {getData, storeData} from '../../utils/asyncstorage';
 import {encrypt} from '../../utils/security.js';
+import {COLORS} from '../../style/Colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 const URLS = {
   RESETPWD: 'http://124.156.143.125:5000/resetPwd',
@@ -113,56 +115,57 @@ export default class Changepwdscreen extends Component {
     return (
       <>
         <Header title="Reset Password"/>
-        <View style={accountStyles.container}>
-            <View style={accountStyles.bottomView}>
-                <View style={accountStyles.inputView}>
-                    <TextInput
-                      style={accountStyles.inputText}
-                      placeholder={this.props.placeHolderCurrentPassword}
-                      multiline={false}
-                      placeholderTextColor={"#3c3c3c"}
-                      autoCorrect={false}
-                      underlineColorAndroid={'transparent'}
-                      secureTextEntry={true}
-                      onChangeText={(currentPassword) => this.setState({currentPassword})}
-                      value={this.state.currentPassword}>
-                    </TextInput>
-                </View>
-                <View style={accountStyles.inputView}>
-                    <TextInput
-                      style={accountStyles.inputText}
-                      placeholder={this.props.placeHolderNewPassword}
-                      multiline={false}
-                      placeholderTextColor={"#3c3c3c"}
-                      autoCorrect={false}
-                      underlineColorAndroid={'transparent'}
-                      secureTextEntry={true}
-                      onChangeText={(newPassword) => this.setState({newPassword})}
-                      value={this.state.newPassword}>
-                    </TextInput>
-                </View>
-                <View style={accountStyles.inputView}>
-                    <TextInput
-                      style={accountStyles.inputText}
-                      placeholder={this.props.placeHolderConfirmPassword}
-                      multiline={false}
-                      placeholderTextColor={"#3c3c3c"}
-                      autoCorrect={false}
-                      underlineColorAndroid={'transparent'}
-                      secureTextEntry={true}
-                      onChangeText={(confirmPassword) => this.setState({confirmPassword})}
-                      value={this.state.confirmPassword}>
-                    </TextInput>
-                </View>
-                <TouchableOpacity
-                    style={accountStyles.btnSave}
-                    activeOpacity={0.6}
-                    onPress={() => this.onbtnSavePress()}>
-                    <Text style={accountStyles.textSave} numberOfLines={1}>Done</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-
+        <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.container}>
+          <View style={accountStyles.container}>
+              <View style={accountStyles.bottomView}>
+                  <View style={accountStyles.inputView}>
+                      <TextInput
+                        style={accountStyles.inputText}
+                        placeholder={this.props.placeHolderCurrentPassword}
+                        multiline={false}
+                        placeholderTextColor={"#3c3c3c"}
+                        autoCorrect={false}
+                        underlineColorAndroid={'transparent'}
+                        secureTextEntry={true}
+                        onChangeText={(currentPassword) => this.setState({currentPassword})}
+                        value={this.state.currentPassword}>
+                      </TextInput>
+                  </View>
+                  <View style={accountStyles.inputView}>
+                      <TextInput
+                        style={accountStyles.inputText}
+                        placeholder={this.props.placeHolderNewPassword}
+                        multiline={false}
+                        placeholderTextColor={"#3c3c3c"}
+                        autoCorrect={false}
+                        underlineColorAndroid={'transparent'}
+                        secureTextEntry={true}
+                        onChangeText={(newPassword) => this.setState({newPassword})}
+                        value={this.state.newPassword}>
+                      </TextInput>
+                  </View>
+                  <View style={accountStyles.inputView}>
+                      <TextInput
+                        style={accountStyles.inputText}
+                        placeholder={this.props.placeHolderConfirmPassword}
+                        multiline={false}
+                        placeholderTextColor={"#3c3c3c"}
+                        autoCorrect={false}
+                        underlineColorAndroid={'transparent'}
+                        secureTextEntry={true}
+                        onChangeText={(confirmPassword) => this.setState({confirmPassword})}
+                        value={this.state.confirmPassword}>
+                      </TextInput>
+                  </View>
+                  <TouchableOpacity
+                      style={accountStyles.btnSave}
+                      activeOpacity={0.6}
+                      onPress={() => this.onbtnSavePress()}>
+                      <Text style={accountStyles.textSave} numberOfLines={1}>Done</Text>
+                  </TouchableOpacity>
+              </View>
+          </View>
+        </LinearGradient>
       </>
     );
   }
