@@ -215,10 +215,9 @@ export const accountStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   bottomView: {
-    backgroundColor: 'white',
     height: 500,
     justifyContent: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'transparent',
   },
   inputText: {
     paddingVertical: 5,
@@ -238,7 +237,7 @@ export const accountStyles = StyleSheet.create({
     overflow: 'hidden',
   },
   btnSave: {
-    backgroundColor: '#CA7476',
+    backgroundColor: 'black',
     paddingHorizontal: 30,
     height: 30,
     justifyContent: 'center',

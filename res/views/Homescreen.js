@@ -49,7 +49,7 @@ export default class Homescreen extends Component {
           <View style={{height: 150, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={styles.recommend}>Daily Recommendation</Text>
           </View>
-          <View>
+          <View style={{marginTop: -20}}>
             {this.state.lipstickInfos.map((l, index) => (
               <ListItem
                 containerStyle={{borderRadius: 10}}
@@ -92,7 +92,15 @@ const styles = StyleSheet.create({
   recommend: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
+    shadowColor: '#2b5876', //only ios
+    shadowOffset: {
+    	width: 5,
+    	height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation:1.5, //only android >=android 5.0
     textAlign: 'center',
   },
 });

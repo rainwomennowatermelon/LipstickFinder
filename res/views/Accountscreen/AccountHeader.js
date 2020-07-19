@@ -17,7 +17,7 @@ function Header(props) {
       }}
       centerComponent={{ text: props.title, style: accountStyles.heading }}
       containerStyle={{
-        backgroundColor: '#CA7476',
+        backgroundColor: 'black',
         justifyContent: 'space-around',
       }}
     />
