@@ -204,7 +204,7 @@ export default class Accounteditscreen extends Component{
   render(){
     return (
       <>
-        <Header title="Settings"/>
+        <Header title="Profile"/>
         <KeyboardAvoidingView
           style={{marginTop: 15, backgroundColor: 'rgba(241,240,241,1)' }}
         >
