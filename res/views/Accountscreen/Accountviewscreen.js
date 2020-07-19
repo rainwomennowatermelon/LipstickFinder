@@ -34,9 +34,22 @@ export default class Accountviewscreen extends Component {
       userName: 'Paul Allen',
       userID: null,
       pwd: null,
-      lipsticks: [],
+      lipsticks: []
     };
   }
+
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ({ item }) => (
+      <ListItem
+        key={item.lipstick_id}
+        chevron
+        title={item.brand}
+        subtitle={item.series + item.name}
+        bottomDivider
+        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}/>
+  )
+
 
   async componentDidMount(){
     const userID = await getData("uid");
@@ -60,7 +73,7 @@ export default class Accountviewscreen extends Component {
           profileData: response['data'],
           profileMime: response['Content-Type'],
         });
-      console.log(response.text());
+      // console.log(response.text());
       if (response.text() == "No image"){
         this.setState({profilePath: PROFILE_PATH});
       }
@@ -72,7 +85,6 @@ export default class Accountviewscreen extends Component {
       alert(err);
     });
 
-    // 'brand': 1, 'series': 1, 'liquid': 1, 'texture': 1, 'color': 1, 'price': 1, 'name': 1, 'lipstick_id': 1
     fetch(URLS.LIPSTICKLIKE + `userID=${userID}&pwd=${pwd}`).then(response => response.json()).then(res=> {
       console.log(res)
       this.setState({
@@ -89,8 +101,8 @@ export default class Accountviewscreen extends Component {
     return (
       <>
         <Header title="Likes"/>
-        <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.container}>
-          <ScrollView style={{backgroundColor: 'transparent' }}>
+        <ScrollView style={{backgroundColor: 'transparent', height: 600 }}>
+          <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.container}>
             <View
               style={{
                 flex: 1,
@@ -143,18 +155,14 @@ export default class Accountviewscreen extends Component {
               </View>
             </View>
             <View style={{marginHorizontal: 10}}>
-              {this.state.lipsticks.map((l, index) => (
-                <ListItem
-                  key={index}
-                  chevron
-                  title={l.brand}
-                  subtitle={l.series + l.name}
-                  bottomDivider
-                  leftIcon={{name: 'square-full', type: 'font-awesome-5', color: l.color}}/>
-              ))}
+              <FlatList
+                keyExtractor={this.keyExtractor}
+                data={this.state.lipsticks}
+                renderItem={this.renderItem}
+              />
             </View>
-          </ScrollView>
-        </LinearGradient>
+          </LinearGradient>
+        </ScrollView>
       </>
     );
   }
