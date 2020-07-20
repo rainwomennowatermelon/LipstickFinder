@@ -131,9 +131,10 @@ android {
 
     defaultConfig {
         applicationId "com.lipstickfinder"
-        minSdkVersion rootProject.ext.minSdkVersion
-//        targetSdkVersion rootProject.ext.targetSdkVersion
-        targetSdkVersion 27
+        // minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 21
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        // targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
