@@ -16,10 +16,10 @@ import CheckBox from '@react-native-community/checkbox';
 import {styles} from '../style/Styles';
 import {getData, removeData, storeData} from '../utils/asyncstorage';
 
-var gender = ["male", "female"];
+var gender = ["Male", "Female", "Others"];
 var kind = ["Lipstick", "Lip glaze"];
-var texture = ["Glossy", "Mattle"];
-var color = ["Red", "Pink", "Orange"];
+var texture = ["Glossy", "Mattle", "Creamy", "Sheer"];
+var color = ["Red", "Pink", "Orange", "Brown", "Purple"];
 
 export default class Questionnairescreen extends Component {
   constructor(props) {
@@ -200,7 +200,7 @@ export default class Questionnairescreen extends Component {
     return (
       <View style={styles.choices}>
         <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-          <Text style={styles.questions}>1. Choose the gender you belong to:</Text>
+          <Text style={styles.questions}>1. Please choose the gender you belong to.</Text>
         </View>
         <FlatList
           ItemSeparatorComponent={
@@ -245,7 +245,7 @@ export default class Questionnairescreen extends Component {
     return (
       <View style={styles.choices}>
         <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-          <Text style={styles.questions}>2. Choose the kind of Lipsticks you like:</Text>
+          <Text style={styles.questions}>2. Please choose the kind of Lipsticks you like.</Text>
         </View>
         <FlatList
           ItemSeparatorComponent={
@@ -289,7 +289,7 @@ export default class Questionnairescreen extends Component {
     return (
       <View style={styles.choices}>
         <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-          <Text style={styles.questions}>3. Choose the texture of Lipsticks you like:</Text>
+          <Text style={styles.questions}>3. Please choose the texture of Lipsticks you like.</Text>
         </View>
         <FlatList
           ItemSeparatorComponent={
@@ -334,7 +334,7 @@ export default class Questionnairescreen extends Component {
     return (
       <View style={styles.choices}>
         <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
-          <Text style={styles.questions}>4. Choose the color of Lipsticks you like:</Text>
+          <Text style={styles.questions}>4. Please choose the color of Lipsticks you like.</Text>
         </View>
         <FlatList
           ItemSeparatorComponent={
@@ -371,7 +371,8 @@ export default class Questionnairescreen extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <ScrollView>
+        <ScrollView style={{marginHorizontal: 10, paddingVertical: 40}}>
+          <Text style={styles.Questionlabel}>Question</Text>
           {this.renderGenderChoice()}
           {this.renderKindChoice()}
           {this.renderTextureChoice()}

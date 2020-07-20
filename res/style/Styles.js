@@ -45,9 +45,11 @@ export const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'black',
     borderRadius: 25,
-    marginBottom: 10,
+    marginBottom: 13,
   },
   AccountButtonText: {
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
@@ -151,14 +153,25 @@ export const styles = StyleSheet.create({
   QuestionaireContainer: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: 10,
   },
-
+  Questionlabel: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'black',
+    shadowColor: '#2b5876', //only ios
+    shadowOffset: {
+    	width: 5,
+    	height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation:1.5, //only android >=android 5.0
+    textAlign: 'center',
+    marginBottom: 5
+  },
   checkboxContainer: {
     width: (devwidth - 50) / 2,
     flexDirection: 'row',
-    marginTop: 5,
-    marginBottom: 5,
   },
   checkbox: {
     alignSelf: 'center',

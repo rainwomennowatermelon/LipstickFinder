@@ -110,10 +110,10 @@ export default class Registerscreen extends Component {
         removeData("email");
         removeData("password");
         
-        // this.props.navigation.navigate('Questionnaire', {
-        //     email: "qiaosj@connect.hku.hk",
-        //     password: "qsj12345",
-        // });
+        this.props.navigation.navigate('Questionnaire', {
+            email: "qiaosj@connect.hku.hk",
+            password: "qsj12345",
+        });
     }
 
     validate_email() {
@@ -202,4 +202,3 @@ export default class Registerscreen extends Component {
         )
     }
 }
-
