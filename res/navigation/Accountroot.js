@@ -7,7 +7,7 @@ import { createDrawerNavigator,
   DrawerItem, } from '@react-navigation/drawer';
 
 import Accounteditscreen from '../views/Accountscreen/Accounteditscreen.js';
-import Lipstickinforoot from '../navigation/Lipstickinforoot.js';
+import Accountviewscreen from '../views/Accountscreen/Accountviewscreen';
 import Changepwdscreen from '../views/Accountscreen/Changepwdscreen.js';
 import Accountaboutscreen from '../views/Accountscreen/Accountaboutscreen.js';
 import Icon from 'react-native-vector-icons/Feather';
@@ -66,7 +66,7 @@ export default class Accountroot extends Component {
 
           <Drawer.Screen
             name="Likes"
-            component={Lipstickinforoot}
+            component={Accountviewscreen}
             options={{drawerIcon: config =>
               <Icon
                 size={25}

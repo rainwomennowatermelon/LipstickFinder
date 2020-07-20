@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default class Accountscreen extends Component {
@@ -13,6 +14,7 @@ export default class Accountscreen extends Component {
       colorScheme: this.props.route.params.colorScheme,
       shown: this.props.route.params.shown,
       type: this.props.route.params.type? '唇釉': '唇膏',
+      brand: this.props.route.params.brand,
     };
     console.log(this.state);
   }
@@ -57,7 +59,7 @@ export default class Accountscreen extends Component {
                 {this.state.name}
               </Text>
               <Text style={styles.lipstickInfo}>
-                {this.state.type} / {this.state.shown}
+                {this.state.brand} / {this.state.type} / {this.state.shown}
               </Text>
             </View>
             <View style={styles.transparentSquare}>
@@ -65,10 +67,11 @@ export default class Accountscreen extends Component {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => this.setState({like: !this.state.like})}>
-              <Image source={this.state.like ?
-                require('../images/like-red.png') :
-                require('../images/like-white.png')}
-              />
+              <Icon
+                size={50}
+                name={'heart-box-outline'}
+                style={{ color: this.state.like ?'#CA7476':'black'}}>
+              </Icon>
             </TouchableOpacity>
           </View>
           <View style={styles.thirdRow}>

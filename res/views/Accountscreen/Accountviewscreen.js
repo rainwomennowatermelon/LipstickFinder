@@ -38,18 +38,17 @@ export default class Accountviewscreen extends Component {
     };
   }
 
-  keyExtractor = (item, index) => index.toString()
-
-  renderItem = ({ item }) => (
-      <ListItem
-        key={item.lipstick_id}
-        chevron
-        title={item.brand}
-        subtitle={item.series + item.name}
-        bottomDivider
-        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}/>
-  )
-
+  lipstickInfoPress(index) {
+    this.props.navigation.navigate('LipsticksInfor', {
+      name: this.state.lipsticks[index].name,
+      color: this.state.lipsticks[index].color,
+      like: true,
+      colorScheme: this.state.lipsticks[index].colorScheme,
+      shown: this.state.lipsticks[index].texture,
+      type: this.state.lipsticks[index].liquid,
+      brand: this.state.lipsticks[index].brand,
+    });
+  }
 
   async componentDidMount(){
     const userID = await getData("uid");
@@ -85,23 +84,36 @@ export default class Accountviewscreen extends Component {
       alert(err);
     });
 
-    fetch(URLS.LIPSTICKLIKE + `userID=${userID}&pwd=${pwd}`).then(response => response.json()).then(res=> {
-      console.log(res)
-      this.setState({
-        lipsticks: res,
-      });
-    }).catch(error => {
-      console.error(error);
+    fetch(URLS.LIPSTICKLIKE + `userID=${userID}&pwd=${pwd}`).then(response => response.json()
+      ).then(res=> {
+        this.setState({
+          lipsticks: res,
+        });
+      }).catch(error => {
+        console.error(error);
     });
 
   }
 
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ({item, index}) => (
+      <ListItem
+        key={item.lipstick_id}
+        chevron
+        title={item.brand}
+        subtitle={item.series + item.name}
+        bottomDivider
+        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}
+        onPress={() => this.lipstickInfoPress(index)}
+      />
+  )
 
   render() {
     return (
       <>
         <Header title="Likes"/>
-        <ScrollView style={{backgroundColor: 'transparent', height: 600 }}>
+        <ScrollView style={{backgroundColor: '#a6c1ee', height: 600 }}>
           <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.container}>
             <View
               style={{
