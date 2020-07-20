@@ -100,6 +100,19 @@ export default class Accountviewscreen extends Component {
 
   }
 
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ({item, index}) => (
+      <ListItem
+        key={item.lipstick_id}
+        chevron
+        title={item.brand}
+        subtitle={item.series + item.name}
+        bottomDivider
+        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}
+        onPress={() => this.lipstickInfoPress(index)}
+      />
+  )
 
   keyExtractor = (item, index) => index.toString()
 

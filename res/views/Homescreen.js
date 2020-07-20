@@ -34,6 +34,7 @@ export default class Homescreen extends Component {
       colorScheme: this.state.lipstickInfos[index].colorScheme,
       shown: this.state.lipstickInfos[index].texture,
       type: this.state.lipstickInfos[index].liquid,
+      brand: this.state.lipstickInfos[index].brand,
     });
   }
 
