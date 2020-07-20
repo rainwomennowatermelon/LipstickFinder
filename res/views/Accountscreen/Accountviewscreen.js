@@ -1,4 +1,3 @@
-// Aboutscreen.js
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -50,10 +49,16 @@ export default class Accountviewscreen extends Component {
     });
   }
 
-  async componentDidMount(){
+  componentDidMount(){
+    this.props.navigation.addListener('focus', () => {
+        this.refresh();
+        // alert('Screen was focused')
+    })
+  }
+
+  refresh = async() =>{
     const userID = await getData("uid");
     const pwd = await getData("password");
-
     this.setState({userID: userID, pwd: pwd});
 
     fetch(URLS.USERINFO + `userID=${userID}&pwd=${pwd}`).then(response => response.json()).then(responseJ => {
@@ -94,6 +99,20 @@ export default class Accountviewscreen extends Component {
     });
 
   }
+
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ({item, index}) => (
+      <ListItem
+        key={item.lipstick_id}
+        chevron
+        title={item.brand}
+        subtitle={item.series + item.name}
+        bottomDivider
+        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}
+        onPress={() => this.lipstickInfoPress(index)}
+      />
+  )
 
   keyExtractor = (item, index) => index.toString()
 
