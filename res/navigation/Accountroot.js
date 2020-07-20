@@ -7,7 +7,7 @@ import { createDrawerNavigator,
   DrawerItem, } from '@react-navigation/drawer';
 
 import Accounteditscreen from '../views/Accountscreen/Accounteditscreen.js';
-import Accountviewscreen from '../views/Accountscreen/Accountviewscreen';
+import Accountviewscreen from '../views/Accountscreen/Accountviewscreen.js';
 import Changepwdscreen from '../views/Accountscreen/Changepwdscreen.js';
 import Accountaboutscreen from '../views/Accountscreen/Accountaboutscreen.js';
 import Icon from 'react-native-vector-icons/Feather';
@@ -41,6 +41,15 @@ function CustomDrawerContent(props) {
           backgroundColor: '#6991c7',
         }}>
         <DrawerItemList {...props} />
+        <DrawerItem
+          label="Logout"
+          onPress={() => props.navigation.navigate("Login")}
+          activeTintColor='black'
+          activeBackgroundColor='transparent'
+          inactiveTintColor='white'
+          inactiveBackgroundColor='transparent'
+          labelStyle={{color: '#F5F5F5', fontSize: 15, marginLeft: 8,}}
+        />
       </View>
     </SafeAreaView>
   );
@@ -67,41 +76,41 @@ export default class Accountroot extends Component {
           <Drawer.Screen
             name="Likes"
             component={Accountviewscreen}
-            options={{drawerIcon: config =>
+            options={{drawerIcon: ({focused}) =>
               <Icon
                 size={25}
                 name={'file-text'}
-                style={{ color: 'white', marginLeft: 5 }}>
+                style={{color: focused?'black':'white',marginLeft: 5 }}>
               </Icon>}}
           />
           <Drawer.Screen
             name="Profile"
             component={Accounteditscreen}
-            options={{drawerIcon: config =>
+            options={{drawerIcon: ({focused}) =>
               <Icon
                 size={23}
                 name={'user'}
-                style={{ color: 'white', marginLeft: 5 }}>
+                style={{color: focused?'black':'white',marginLeft: 5 }}>
               </Icon>}}
           />
           <Drawer.Screen
             name="Password"
             component={Changepwdscreen}
-            options={{drawerIcon: config =>
+            options={{drawerIcon: ({focused}) =>
               <Icon
                 size={23}
                 name={'settings'}
-                style={{ color: 'white', marginLeft: 5 }}>
+                style={{color: focused?'black':'white',marginLeft: 5 }}>
               </Icon>}}
           />
           <Drawer.Screen
             name="About us"
             component={Accountaboutscreen}
-            options={{drawerIcon: config =>
+            options={{drawerIcon: ({focused}) =>
               <Icon
                 size={23}
                 name={'help-circle'}
-                style={{ color: 'white', marginLeft: 5 }}>
+                style={{color: focused?'black':'white',marginLeft: 5 }}>
               </Icon>}}
           />
 
