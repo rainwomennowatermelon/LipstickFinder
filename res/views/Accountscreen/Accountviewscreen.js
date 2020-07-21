@@ -46,6 +46,7 @@ export default class Accountviewscreen extends Component {
       shown: this.state.lipsticks[index].texture,
       type: this.state.lipsticks[index].liquid,
       brand: this.state.lipsticks[index].brand,
+      lipstickid: this.state.lipsticks[index].lipstick_id,
     });
   }
 

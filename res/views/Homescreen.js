@@ -3,6 +3,11 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {COLORS} from '../style/Colors';
 import LinearGradient from 'react-native-linear-gradient';
+import {getData} from '../utils/asyncstorage';
+
+const URLS = {
+  MARKIFLIKE: 'http://124.156.143.125:5000/markIfLike?',
+};
 
 export default class Homescreen extends Component {
 
@@ -19,12 +24,26 @@ export default class Homescreen extends Component {
   }
 
   componentDidMount() {
+    
     fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
       this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
     }).catch(error => {
       console.error(error);
     });
+
+    this.props.navigation.addListener('focus', () => {
+        this.refresh();
+        // alert('Screen was focused')
+    })
   };
+
+  refresh(){
+    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
+      this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+    }).catch(error => {
+      console.error(error);
+    });
+  }
 
   lipstickInfoPress(index) {
     this.props.navigation.navigate('LipsticksInfor', {
@@ -35,12 +54,33 @@ export default class Homescreen extends Component {
       shown: this.state.lipstickInfos[index].texture,
       type: this.state.lipstickInfos[index].liquid,
       brand: this.state.lipstickInfos[index].brand,
+      lipstickid: this.state.lipstickInfos[index].lipstick_id,
+      price: this.state.lipstickInfos[index].price,
     });
   }
 
-  updateLike = (index) => {
+  updateLike= async(index) => {
     this.state.lipstickInfos[index].like = !this.state.lipstickInfos[index].like;
     this.forceUpdate();
+
+    const likeLabel = this.state.lipstickInfos[index].like ;
+    const userID = await getData("uid");
+    const pwd = await getData("password");
+
+    console.log(this.state.lipstickInfos[index].lipstick_id);
+    fetch(URLS.MARKIFLIKE, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userID: userID,
+        pwd: pwd,
+        likeLipstickID: this.state.lipstickInfos[index].lipstick_id,
+        likeLabel: likeLabel,
+      })
+    });
   };
 
   render() {

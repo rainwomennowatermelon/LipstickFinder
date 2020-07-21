@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import {Image, Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {getData} from '../utils/asyncstorage';
 
+const URLS = {
+  MARKIFLIKE: 'http://124.156.143.125:5000/markIfLike?',
+};
 
 export default class Accountscreen extends Component {
 
@@ -15,6 +19,8 @@ export default class Accountscreen extends Component {
       shown: this.props.route.params.shown,
       type: this.props.route.params.type? '唇釉': '唇膏',
       brand: this.props.route.params.brand,
+      lipstickid: this.props.route.params.lipstickid,
+      price: this.props.route.params.price,
     };
     console.log(this.state);
   }
@@ -44,6 +50,29 @@ export default class Accountscreen extends Component {
     };
   }
 
+  changeLikeLabel = async() =>{
+
+    const beforeLikeLabel = this.state.like;
+    this.setState({like: !beforeLikeLabel});
+
+    const userID = await getData("uid");
+    const pwd = await getData("password");
+    console.log(this.state.lipstickid);
+    fetch(URLS.MARKIFLIKE, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userID: userID,
+        pwd: pwd,
+        likeLipstickID: this.state.lipstickid,
+        likeLabel: !beforeLikeLabel,
+      })
+    });
+
+  }
   render() {
 
     return (
@@ -59,14 +88,14 @@ export default class Accountscreen extends Component {
                 {this.state.name}
               </Text>
               <Text style={styles.lipstickInfo}>
-                {this.state.brand} / {this.state.type} / {this.state.shown}
+                {this.state.brand} / {this.state.type} / {this.state.shown} / ￥{this.state.price}
               </Text>
             </View>
             <View style={styles.transparentSquare}>
             </View>
             <TouchableOpacity
               activeOpacity={0.5}
-              onPress={() => this.setState({like: !this.state.like})}>
+              onPress={() => this.changeLikeLabel()}>
               <Icon
                 size={50}
                 name={'heart-box-outline'}
