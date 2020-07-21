@@ -24,7 +24,7 @@ export default class Homescreen extends Component {
   }
 
   componentDidMount() {
-    
+
     fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
       this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
     }).catch(error => {
@@ -66,8 +66,8 @@ export default class Homescreen extends Component {
     const likeLabel = this.state.lipstickInfos[index].like ;
     const userID = await getData("uid");
     const pwd = await getData("password");
-
-    console.log(this.state.lipstickInfos[index].lipstick_id);
+    const lipstickID = this.state.lipstickInfos[index].lipstick_id
+    console.log(lipstickID);
     fetch(URLS.MARKIFLIKE, {
       method: 'POST',
       headers: {
@@ -77,7 +77,7 @@ export default class Homescreen extends Component {
       body: JSON.stringify({
         userID: userID,
         pwd: pwd,
-        likeLipstickID: this.state.lipstickInfos[index].lipstick_id,
+        likeLipstickID: lipstickID,
         likeLabel: likeLabel,
       })
     });

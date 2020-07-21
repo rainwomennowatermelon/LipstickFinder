@@ -5,6 +5,7 @@ import {getData} from '../utils/asyncstorage';
 
 const URLS = {
   MARKIFLIKE: 'http://124.156.143.125:5000/markIfLike?',
+  FOCUSONLIPSTICK: 'http://124.156.143.125:5000/focusOnLipstick?',
 };
 
 export default class Accountscreen extends Component {
@@ -24,6 +25,30 @@ export default class Accountscreen extends Component {
     };
     console.log(this.state);
   }
+
+  componentDidMount() {
+    this.props.navigation.addListener('focus', () => {
+        this.focusOnLipstick();
+    })
+  };
+
+  focusOnLipstick = async() =>{
+    const userID = await getData("uid");
+    const pwd = await getData("password");
+    fetch(URLS.FOCUSONLIPSTICK, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userID: userID,
+        pwd: pwd,
+        lipstickID: this.state.lipstickid,
+      })
+    });
+  }
+
 
   onPress() {
     console.log(this.state.name);
