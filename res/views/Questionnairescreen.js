@@ -18,7 +18,7 @@ import {getData, removeData, storeData} from '../utils/asyncstorage';
 
 var gender = ["Male", "Female", "Others"];
 var kind = ["Lipstick", "Lip glaze"];
-var texture = ["Glossy", "Mattle", "Creamy", "Sheer"];
+var texture = ["Glossy", "Matte", "Creamy", "Sheer"];
 var color = ["Red", "Pink", "Orange", "Brown", "Purple"];
 
 export default class Questionnairescreen extends Component {
