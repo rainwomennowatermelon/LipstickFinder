@@ -102,20 +102,6 @@ export default class Accountviewscreen extends Component {
   }
 
 
-  keyExtractor = (item, index) => index.toString()
-
-  renderItem = ({item, index}) => (
-      <ListItem
-        key={item.lipstick_id}
-        chevron
-        title={item.brand}
-        subtitle={item.series + item.name}
-        bottomDivider
-        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}
-        onPress={() => this.lipstickInfoPress(index)}
-      />
-  )
-
   render() {
     return (
       <>
@@ -174,11 +160,17 @@ export default class Accountviewscreen extends Component {
               </View>
             </View>
             <View style={{marginHorizontal: 10}}>
-              <FlatList
-                keyExtractor={this.keyExtractor}
-                data={this.state.lipsticks}
-                renderItem={this.renderItem}
-              />
+              {this.state.lipsticks.map((item, index) => (
+                <ListItem
+                  key={index}
+                  title={item.brand}
+                  subtitle={item.series + item.name}
+                  chevron
+                  bottomDivider
+                  leftIcon={{name: 'square-full', type: 'font-awesome-5', color: item.color}}
+                  onPress={() => this.lipstickInfoPress(index)}
+                />
+              ))}
             </View>
           </LinearGradient>
         </ScrollView>
