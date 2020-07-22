@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Header as HeaderRNE } from 'react-native-elements';
-import { styles, accountStyles } from '../../style/Styles.js';
-
+import {useNavigation} from '@react-navigation/native';
+import {Header as HeaderRNE} from 'react-native-elements';
+import {accountStyles} from '../../style/Styles.js';
 
 function Header(props) {
   const navigation = useNavigation();
@@ -15,7 +13,7 @@ function Header(props) {
         color: '#fff',
         onPress: navigation.openDrawer,
       }}
-      centerComponent={{ text: props.title, style: accountStyles.heading }}
+      centerComponent={{text: props.title, style: accountStyles.heading}}
       containerStyle={{
         backgroundColor: 'black',
         justifyContent: 'space-around',
@@ -24,4 +22,4 @@ function Header(props) {
   );
 }
 
-export { Header };
+export {Header};

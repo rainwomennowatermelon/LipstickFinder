@@ -1,18 +1,10 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Text,
-  Image,
-  FlatList
-} from 'react-native';
-import { Avatar, Button, Icon, ListItem } from 'react-native-elements';
-import { styles, accountStyles } from '../../style/Styles.js';
-import { Header } from './AccountHeader.js';
+import React, {Component} from 'react';
+import {ScrollView, Text, View} from 'react-native';
+import {Avatar, ListItem} from 'react-native-elements';
+import {styles} from '../../style/Styles.js';
+import {Header} from './AccountHeader.js';
 import {COLORS} from '../../style/Colors';
 import LinearGradient from 'react-native-linear-gradient';
-import AsyncStorage from '@react-native-community/async-storage';
 import {getData} from '../../utils/asyncstorage';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -33,7 +25,7 @@ export default class Accountviewscreen extends Component {
       userName: 'Paul Allen',
       userID: null,
       pwd: null,
-      lipsticks: []
+      lipsticks: [],
     };
   }
 
@@ -50,16 +42,16 @@ export default class Accountviewscreen extends Component {
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.navigation.addListener('focus', () => {
-        this.refresh();
-        // alert('Screen was focused')
-    })
+      this.refresh();
+      // alert('Screen was focused')
+    });
   }
 
-  refresh = async() =>{
-    const userID = await getData("uid");
-    const pwd = await getData("password");
+  refresh = async () => {
+    const userID = await getData('uid');
+    const pwd = await getData('password');
     this.setState({userID: userID, pwd: pwd});
 
     fetch(URLS.USERINFO + `userID=${userID}&pwd=${pwd}`).then(response => response.json()).then(responseJ => {
@@ -75,14 +67,13 @@ export default class Accountviewscreen extends Component {
       'Content-Type': 'application/octet-stream',
     }).then(response => {
       this.setState({
-          profileData: response['data'],
-          profileMime: response['Content-Type'],
-        });
+        profileData: response['data'],
+        profileMime: response['Content-Type'],
+      });
       // console.log(response.text());
-      if (response.text() == "No image"){
+      if (response.text() == 'No image') {
         this.setState({profilePath: PROFILE_PATH});
-      }
-      else{ //display the image in DB
+      } else { //display the image in DB
         this.setState({profilePath: `data:${this.state.profileMime};base64,${this.state.profileData}`});
       }
 
@@ -90,23 +81,22 @@ export default class Accountviewscreen extends Component {
       alert(err);
     });
 
-    fetch(URLS.LIPSTICKLIKE + `userID=${userID}&pwd=${pwd}`).then(response => response.json()
-      ).then(res=> {
-        this.setState({
-          lipsticks: res,
-        });
-      }).catch(error => {
-        console.error(error);
+    fetch(URLS.LIPSTICKLIKE + `userID=${userID}&pwd=${pwd}`).then(response => response.json(),
+    ).then(res => {
+      this.setState({
+        lipsticks: res,
+      });
+    }).catch(error => {
+      console.error(error);
     });
 
-  }
-
+  };
 
   render() {
     return (
       <>
         <Header title="Likes"/>
-        <ScrollView style={{backgroundColor: '#a6c1ee', height: 600 }}>
+        <ScrollView style={{backgroundColor: '#a6c1ee', height: 600}}>
           <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.container}>
             <View
               style={{
@@ -121,7 +111,7 @@ export default class Accountviewscreen extends Component {
                 marginBottom: 10,
               }}
             >
-              <View style={{ flex: 3, flexDirection: 'row' }}>
+              <View style={{flex: 3, flexDirection: 'row'}}>
                 <View
                   style={{
                     flex: 1,
@@ -129,13 +119,13 @@ export default class Accountviewscreen extends Component {
                     alignItems: 'center',
                   }}
                 >
-                <Avatar
-                  size={115}
-                  source={{uri: this.state.profilePath}}
-                  activeOpacity={0.7}
-                  avatarStyle={{ borderRadius: 145 / 2 }}
-                  overlayContainerStyle={{ backgroundColor: 'transparent' }}
-                />
+                  <Avatar
+                    size={115}
+                    source={{uri: this.state.profilePath}}
+                    activeOpacity={0.7}
+                    avatarStyle={{borderRadius: 145 / 2}}
+                    overlayContainerStyle={{backgroundColor: 'transparent'}}
+                  />
                 </View>
                 <View
                   style={{

@@ -1,0 +1,28 @@
+diff --git a/node_modules/react-native-collapsible/Collapsible.js b/node_modules/react-native-collapsible/Collapsible.js
+index 99e614f..5b94b24 100644
+--- a/node_modules/react-native-collapsible/Collapsible.js
++++ b/node_modules/react-native-collapsible/Collapsible.js
+@@ -70,6 +70,14 @@ export default class Collapsible extends Component {
+     this.contentHandle = ref;
+   };
+ 
++  _getNode = () => {
++    if (this.contentHandle.measure) {
++      return this.contentHandle;
++    } else {
++      return this.contentHandle.getNode();
++    }
++  };
++
+   _measureContent(callback) {
+     this.setState(
+       {
+@@ -85,7 +93,7 @@ export default class Collapsible extends Component {
+               () => callback(this.props.collapsedHeight)
+             );
+           } else {
+-            this.contentHandle.getNode().measure((x, y, width, height) => {
++            this._getNode().measure((x, y, width, height) => {
+               this.setState(
+                 {
+                   measuring: false,

@@ -1,4 +1,5 @@
 rootProject.name = 'LipstickFinder'
+apply from: '../node_modules/react-native-unimodules/gradle.groovy'; includeUnimodulesProjects()
 include ':rn-fetch-blob'
 project(':rn-fetch-blob').projectDir = new File(rootProject.projectDir, '../node_modules/rn-fetch-blob/android')
 include ':react-native-image-picker'

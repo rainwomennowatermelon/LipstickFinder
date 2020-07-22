@@ -6,4 +6,6 @@ export const COLORS = {
   DARK_GREY: '#555',
   NAVIGATION_ACTIVE: 'black', //'#CA7476',
   NAVIGATION_BACKGROUND: 'white',
+  SLIDER_THUMB: 'black',
+  SLIDER_BACKGROUND: 'white',
 };

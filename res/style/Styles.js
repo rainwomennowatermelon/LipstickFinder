@@ -1,5 +1,6 @@
 import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
+import {COLORS} from './Colors';
 
 var devwidth = Dimensions.get('window').width;
 const PICKER_BORDER_RADIUS = 5;
@@ -62,19 +63,19 @@ export const styles = StyleSheet.create({
   },
   // FindScreen
   upperContainer: {
-    // flex: 1,
     marginTop: 50,
+    alignItems: 'center',
   },
   centerContainer: {
-    flexDirection: 'column',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
   },
-  bottomContainer: {
+  ScrollViewContainer: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
   linearGradient: {
     flex: 1,
@@ -96,7 +97,6 @@ export const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'black',
     borderRadius: 25,
-    marginBottom: 10,
     elevation: 10, // Android Shadow
     shadowColor: 'rgba(0,0,0, 0.5)', // IOS
     shadowOffset: {height: 5, width: 5}, // IOS
@@ -110,6 +110,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   btnChoose: {
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
     width: devwidth * 0.68,
@@ -118,6 +119,15 @@ export const styles = StyleSheet.create({
     minHeight: 200,
     borderRadius: devwidth * 0.34,
     backgroundColor: 'rgba(255,255,255,0.5)',
+  },
+  slider: {
+    backgroundColor: COLORS.SLIDER_BACKGROUND,
+    borderRadius: 10,
+    paddingVertical: 10,
+    marginTop: 10,
+  },
+  lipstickList: {
+    marginTop: 10,
   },
   // makeup
   MakeupContainer: {
