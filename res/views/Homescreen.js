@@ -23,12 +23,37 @@ export default class Homescreen extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async() =>{
 
-    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
-      this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
-    }).catch(error => {
-      console.error(error);
+    // fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
+    //   this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+    // }).catch(error => {
+    //   console.error(error);
+    // });
+    
+    // fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
+    //   this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+    //   console.log(responseJson);
+    // }).catch((error) => {
+    //     console.error(error);
+    // });
+    const userID = await getData("uid");
+    const password = await getData("password");
+
+    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userID: userID,
+            password: password,
+        })
+    }).then(response => response.json()).then(responseJson => {
+    	this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+    }).catch((error) => {
+        console.error(error);
     });
 
     this.props.navigation.addListener('focus', () => {
@@ -37,11 +62,33 @@ export default class Homescreen extends Component {
     })
   };
 
-  refresh(){
-    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
-      this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
-    }).catch(error => {
-      console.error(error);
+  refresh = async() => {
+    const userID = await getData("uid");
+    const password = await getData("password");
+
+    // fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
+    //   this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+    //   console.log(responseJson);
+    // }).catch((error) => {
+    //     console.error(error);
+    // });
+
+    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userID: userID,
+            password: password,
+        })
+    }).then(response => response.json()).then(responseJson => {
+    	this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+      // console.log(responseJson);
+      // this.setState({lipstickInfos: responseJson});
+    }).catch((error) => {
+        console.error(error);
     });
   }
 
