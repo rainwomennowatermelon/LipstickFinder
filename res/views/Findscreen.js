@@ -26,7 +26,6 @@ export default class Findscreen extends Component {
     super(props);
     this.state = {
       lipsticks: [],
-      photoData: null,
       photoPath: null,
       photoMime: null,
       hue: 0.0,
@@ -53,7 +52,6 @@ export default class Findscreen extends Component {
       avoidEmptySpaceAroundImage: true, // ios
     }).then(image => {
       this.setState({
-        photoData: image.data,
         photoPath: image.path,
         photoMime: image.mime,
       });
@@ -85,6 +83,7 @@ export default class Findscreen extends Component {
   };
 
   renderImage = () => {
+    console.log(this.state.photoPath);
     if (this.state.photoPath) {
       const width = styles.imgWindow.width;
       return (
@@ -119,7 +118,7 @@ export default class Findscreen extends Component {
     } else {
       return (
         <View style={styles.centerContainer}>
-          <TouchableOpacity onPress={this.chooseImage} style={styles.btnChoose}>
+          <TouchableOpacity onPress={this.chooseImage} style={styles.btnCircle}>
             <Icon type={'font-awesome-5'} name={'camera-retro'} size={100} color={'white'}/>
           </TouchableOpacity>
         </View>
@@ -151,6 +150,13 @@ export default class Findscreen extends Component {
     }
   };
 
+  chooseLipstick = async (lipstick) => {
+    this.props.navigation.navigate('Makeup', {
+      color: lipstick.color,
+      lipstick: lipstick.name,
+    });
+  };
+
   render() {
     return (
       <LinearGradient colors={[COLORS.PRIMARY_START, COLORS.PRIMARY_END]} start={{x: 0, y: 0}} end={{x: 0.8, y: 0.8}} style={styles.Container}>
@@ -164,10 +170,11 @@ export default class Findscreen extends Component {
               ))}
             </Collapsible>
             <View style={styles.lipstickList}>
-            {this.state.lipsticks.map((l, index) => (
-              <ListItem key={index} chevron title={l.brand} subtitle={l.seriesName + l.lipStickName} bottomDivider
-                        leftIcon={{name: 'square-full', type: 'font-awesome-5', color: l.lipStickColor}}/>
-            ))}
+              {this.state.lipsticks.map((l, index) => (
+                <ListItem key={index} chevron title={l.brand} subtitle={l.series + l.name} bottomDivider
+                          leftIcon={{name: 'square-full', type: 'font-awesome-5', color: l.color}}
+                          onPress={() => this.chooseLipstick(l)}/>
+              ))}
             </View>
           </ScrollView>
         </View>

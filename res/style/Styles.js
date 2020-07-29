@@ -68,6 +68,7 @@ export const styles = StyleSheet.create({
   },
   centerContainer: {
     flex: 1,
+    marginTop: devwidth * 0.4,
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
@@ -109,8 +110,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  btnChoose: {
-    marginTop: 100,
+  btnCircle: {
     alignItems: 'center',
     justifyContent: 'center',
     width: devwidth * 0.68,
@@ -132,8 +132,7 @@ export const styles = StyleSheet.create({
   // makeup
   MakeupContainer: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingTop: 25,
   },
   PickerContainer: {
     flexDirection: 'row',
@@ -141,7 +140,7 @@ export const styles = StyleSheet.create({
     height: 35,
     backgroundColor: 'white',
     borderRadius: PICKER_BORDER_RADIUS,
-    margin: 5,
+    marginBottom: 10,
   },
   PickerLabel: {
     flex: 1,
@@ -160,6 +159,20 @@ export const styles = StyleSheet.create({
   Picker: {
     flex: 3,
   },
+  ColorPickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    height: 50,
+  },
+  ColorBtnText: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 15,
+    color: 'white',
+  },
+  // questionaire
   QuestionaireContainer: {
     flex: 1,
     width: '100%',
@@ -170,14 +183,14 @@ export const styles = StyleSheet.create({
     color: 'black',
     shadowColor: '#2b5876', //only ios
     shadowOffset: {
-    	width: 5,
-    	height: 5,
+      width: 5,
+      height: 5,
     },
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
-    elevation:1.5, //only android >=android 5.0
+    elevation: 1.5, //only android >=android 5.0
     textAlign: 'center',
-    marginBottom: 5
+    marginBottom: 5,
   },
   checkboxContainer: {
     width: (devwidth - 50) / 2,
