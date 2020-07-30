@@ -6,6 +6,10 @@ export const COLORS = {
   DARK_GREY: '#555',
   NAVIGATION_ACTIVE: 'black', //'#CA7476',
   NAVIGATION_BACKGROUND: 'white',
+  ACCOUNT_NAV_TEXT_ACTIVE: 'white',
+  ACCOUNT_NAV_TEXT_INACTIVE: 'black',
+  ACCOUNT_NAV_BG_ACTIVE: 'black',
+  ACCOUNT_NAV_BG_INACTIVE: 'transparent',
   SLIDER_THUMB: 'black',
   SLIDER_BACKGROUND: 'white',
 };
