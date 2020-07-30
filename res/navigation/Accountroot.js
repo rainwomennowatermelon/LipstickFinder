@@ -22,7 +22,10 @@ function CustomDrawerContent(props) {
         <DrawerItemList {...props} />
         <DrawerItem
           label="Logout"
-          onPress={() => props.navigation.navigate('Login')}
+          onPress={() => props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Login'}],
+          })}
           activeTintColor={COLORS.ACCOUNT_NAV_TEXT_ACTIVE}
           activeBackgroundColor={COLORS.ACCOUNT_NAV_BG_ACTIVE}
           inactiveTintColor={COLORS.ACCOUNT_NAV_TEXT_INACTIVE}

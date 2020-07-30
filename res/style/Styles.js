@@ -86,6 +86,7 @@ export const styles = StyleSheet.create({
   ScrollViewContainer: {
     flex: 1,
     width: '100%',
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   linearGradient: {
