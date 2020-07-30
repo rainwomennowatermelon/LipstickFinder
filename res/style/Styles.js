@@ -22,31 +22,41 @@ export const styles = StyleSheet.create({
     fontSize: 25,
   },
   ViewForAccountInput: {
-    width: devwidth - 100,
-    height: 60,
+    flexDirection: 'row',
+    width: devwidth - 90,
+    minWidth: 200,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
+    margin: 10,
   },
   AccountInput: {
-    width: devwidth - 90,
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+    flex: 1,
+    borderRadius: 25,
+    backgroundColor: COLORS.INPUT_BG,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
+    elevation: 1, // Android Shadow
+    shadowColor: 'rgba(0,0,0, 0.5)', // IOS
+    shadowOffset: {height: 5, width: 5}, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 1, //IOS
   },
   AccountButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
-    width: Dimensions.get('screen').width * 0.68,
-    minWidth: 200,
+    marginTop: 35,
+    marginBottom: 20,
+    width: 200,
     height: 50,
     backgroundColor: 'black',
     borderRadius: 25,
-    marginBottom: 13,
+    elevation: 10, // Android Shadow
+    shadowColor: 'rgba(0,0,0, 0.5)', // IOS
+    shadowOffset: {height: 5, width: 5}, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 10, //IOS
   },
   AccountButtonText: {
     alignItems: 'center',
@@ -56,7 +66,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   RegisterReminder: {
-    width: devwidth - 100,
+    flex: 1,
     height: 20,
     fontSize: 15,
     borderColor: 'gray',
@@ -178,19 +188,11 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   Questionlabel: {
+    marginTop: 20,
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'black',
-    shadowColor: '#2b5876', //only ios
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 1.5, //only android >=android 5.0
     textAlign: 'center',
-    marginBottom: 5,
+    color: 'black',
   },
   checkboxContainer: {
     width: (devwidth - 50) / 2,
