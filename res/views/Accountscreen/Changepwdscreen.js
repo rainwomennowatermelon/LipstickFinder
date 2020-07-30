@@ -87,7 +87,7 @@ export default class Changepwdscreen extends Component {
     } else if (this.state.newPassword.trim().length == 0) {
       alert('Please enter new password.');
     } else if (this.state.newPassword != this.state.confirmPassword) {
-      alert('Password dose not match');
+      alert('Password does not match');
     } else {
       // Keyboard.dismiss();
       if (passwordValid) {
