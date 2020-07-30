@@ -24,19 +24,7 @@ export default class Homescreen extends Component {
   }
 
   componentDidMount = async() =>{
-
-    // fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
-    //   this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
-    // }).catch(error => {
-    //   console.error(error);
-    // });
     
-    // fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
-    //   this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
-    //   console.log(responseJson);
-    // }).catch((error) => {
-    //     console.error(error);
-    // });
     const userID = await getData("uid");
     const password = await getData("password");
 
@@ -65,13 +53,6 @@ export default class Homescreen extends Component {
   refresh = async() => {
     const userID = await getData("uid");
     const password = await getData("password");
-
-    // fetch('http://124.156.143.125:5000/getRecommendLipstickInfo').then(response => response.json()).then(responseJson => {
-    //   this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
-    //   console.log(responseJson);
-    // }).catch((error) => {
-    //     console.error(error);
-    // });
 
     fetch('http://124.156.143.125:5000/getRecommendLipstickInfo', {
         method: 'POST',
