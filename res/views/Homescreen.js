@@ -7,6 +7,8 @@ import {getData} from '../utils/asyncstorage';
 
 const URLS = {
   MARKIFLIKE: 'http://124.156.143.125:5000/markIfLike?',
+  LIPSTICKLIKE: 'http://124.156.143.125:5000/getLipstickLike?',
+  RECOM: 'http://124.156.143.125:5000/getRecommendLipstickInfo'
 };
 
 export default class Homescreen extends Component {
@@ -24,11 +26,11 @@ export default class Homescreen extends Component {
   }
 
   componentDidMount = async() =>{
-    
+
     const userID = await getData("uid");
     const password = await getData("password");
 
-    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo', {
+    fetch(URLS.RECOM, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -50,27 +52,29 @@ export default class Homescreen extends Component {
     })
   };
 
+  // refresh like label
   refresh = async() => {
     const userID = await getData("uid");
-    const password = await getData("password");
+    const pwd = await getData("password");
+    let likeLipstickID = [];
 
-    fetch('http://124.156.143.125:5000/getRecommendLipstickInfo', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            userID: userID,
-            password: password,
-        })
-    }).then(response => response.json()).then(responseJson => {
-    	this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
-      // console.log(responseJson);
-      // this.setState({lipstickInfos: responseJson});
-    }).catch((error) => {
-        console.error(error);
+    fetch(URLS.LIPSTICKLIKE + `userID=${userID}&pwd=${pwd}`).then(response => response.json(),
+    ).then(res => {
+      console.log(res);
+      res.forEach((item, i) => {
+        likeLipstickID.push(item['lipstick_id']);
+      });
+      console.log(likeLipstickID);
+      let recom = this.state.lipstickInfos;
+      recom.forEach((item, i) => {
+        item['like'] = likeLipstickID.includes(item['lipstick_id']);
+      });
+      this.setState({lipstickInfos: recom});
+
+    }).catch(error => {
+      console.error(error);
     });
+
   }
 
   lipstickInfoPress(index) {
