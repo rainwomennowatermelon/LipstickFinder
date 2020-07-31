@@ -18,11 +18,12 @@ export default class Loginscreen extends Component {
   onLoginButtonPress = () => {
     const emailValid = this.validate_email();
     const passwordValid = this.validate_password();
-    if (emailValid && passwordValid) {
-      this.verify_account();
+    if (!emailValid){
+      Alert.alert('Please Enter a Valid Email Address (e.g. xxxx@xxxx.xxxx)');
+    } else if(!passwordValid){
+      Alert.alert('Please Enter a Valid Password (no less than 8 characters)');
     } else {
-      LayoutAnimation.easeInEaseOut();
-      Alert.alert('Invalid Email or Password Format');
+      this.verify_account();
     }
   };
 

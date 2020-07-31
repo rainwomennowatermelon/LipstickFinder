@@ -19,14 +19,11 @@ export default class Registerscreen extends Component {
     const passwordValid = this.validate_password();
     const confirmPasswordValid = this.validate_confirmpassword();
     if (!emailValid) {
-      LayoutAnimation.easeInEaseOut();
-      Alert.alert('Please Enter Valid Email');
+      Alert.alert('Please Enter a Valid Email Address (e.g. xxxx@xxxx.xxxx)');
     } else if (!passwordValid) {
-      LayoutAnimation.easeInEaseOut();
-      Alert.alert('Please Enter Valid Password');
+      Alert.alert('Please Enter a Valid Password (no less than 8 characters)');
     } else if (!confirmPasswordValid) {
-      LayoutAnimation.easeInEaseOut();
-      Alert.alert('Please Enter Same Password as Above');
+      Alert.alert('Please Enter the Same Password as Above');
     } else {
       this.registerOnServer();
     }
