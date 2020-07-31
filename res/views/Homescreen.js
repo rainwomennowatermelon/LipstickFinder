@@ -8,6 +8,7 @@ import {getData} from '../utils/asyncstorage';
 const URLS = {
   MARKIFLIKE: 'http://124.156.143.125:5000/markIfLike?',
   RECOMMENDLIST: 'http://124.156.143.125:5000/getRecommendLipstickInfo',
+  LIPSTICKLIKE: 'http://124.156.143.125:5000/getLipstickLike?',
 };
 
 export default class Homescreen extends Component {
