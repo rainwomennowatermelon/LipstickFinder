@@ -7,8 +7,7 @@ import {getData} from '../utils/asyncstorage';
 
 const URLS = {
   MARKIFLIKE: 'http://124.156.143.125:5000/markIfLike?',
-  LIPSTICKLIKE: 'http://124.156.143.125:5000/getLipstickLike?',
-  RECOM: 'http://124.156.143.125:5000/getRecommendLipstickInfo'
+  RECOMMENDLIST: 'http://124.156.143.125:5000/getRecommendLipstickInfo',
 };
 
 export default class Homescreen extends Component {
@@ -25,31 +24,31 @@ export default class Homescreen extends Component {
     };
   }
 
-  componentDidMount = async() =>{
+  componentDidMount = async () => {
 
-    const userID = await getData("uid");
-    const password = await getData("password");
+    const userID = await getData('uid');
+    const password = await getData('password');
 
-    fetch(URLS.RECOM, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            userID: userID,
-            password: password,
-        })
+    fetch(URLS.RECOMMENDLIST, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userID: userID,
+        password: password,
+      }),
     }).then(response => response.json()).then(responseJson => {
-    	this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
+      this.setState({lipstickInfos: responseJson.recommendLipstickInfoVos});
     }).catch((error) => {
-        console.error(error);
+      console.error(error);
     });
 
     this.props.navigation.addListener('focus', () => {
-        this.refresh();
-        // alert('Screen was focused')
-    })
+      this.refresh();
+      // alert('Screen was focused')
+    });
   };
 
   // refresh like label
@@ -91,27 +90,27 @@ export default class Homescreen extends Component {
     });
   }
 
-  updateLike= async(index) => {
+  updateLike = async (index) => {
     this.state.lipstickInfos[index].like = !this.state.lipstickInfos[index].like;
     this.forceUpdate();
 
-    const likeLabel = this.state.lipstickInfos[index].like ;
-    const userID = await getData("uid");
-    const pwd = await getData("password");
-    const lipstickID = this.state.lipstickInfos[index].lipstick_id
+    const likeLabel = this.state.lipstickInfos[index].like;
+    const userID = await getData('uid');
+    const pwd = await getData('password');
+    const lipstickID = this.state.lipstickInfos[index].lipstick_id;
     console.log(lipstickID);
     fetch(URLS.MARKIFLIKE, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         userID: userID,
         pwd: pwd,
         likeLipstickID: lipstickID,
         likeLabel: likeLabel,
-      })
+      }),
     });
   };
 
@@ -125,7 +124,7 @@ export default class Homescreen extends Component {
           <View style={{marginTop: -20}}>
             {this.state.lipstickInfos.map((l, index) => (
               <ListItem
-                containerStyle={{borderRadius: 10}}
+                containerStyle={{borderRadius: 10, height: 100}}
                 underlayColor='transparent'
                 style={styles.row}
                 key={index}
@@ -166,14 +165,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: 'black',
-    shadowColor: '#2b5876', //only ios
-    shadowOffset: {
-    	width: 5,
-    	height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation:1.5, //only android >=android 5.0
-    textAlign: 'center',
   },
 });
