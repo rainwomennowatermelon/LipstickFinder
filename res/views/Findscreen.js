@@ -21,22 +21,25 @@ const FILTER_SETTINGS = [
 ];
 
 const PREDICT_URL = 'http://124.156.143.125:5000/predict';
-const IMAGE_SIZE = 512;
+const IMAGE_SIZE = 513; // server requires 512 x 512 image (need extra 1 pixel to workaround)
+const INITIAL_STATE = {
+  lipsticks: [],
+  photoPath: null,
+  photoMime: null,
+  hue: 0.0,
+  contrast: 1.0,
+  saturation: 1.0,
+  brightness: 1.0,
+  temperature: 6500.0,
+  collapsed: true,
+};
 
 export default class Findscreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      lipsticks: [],
-      photoPath: null,
-      photoMime: null,
-      hue: 0.0,
-      contrast: 1.0,
-      saturation: 1.0,
-      brightness: 1.0,
-      temperature: 6500.0,
-      collapsed: true,
-    };
+    let copy = {};
+    Object.assign(copy, INITIAL_STATE);
+    this.state = copy;
     this.image = null;
   }
 
@@ -57,32 +60,44 @@ export default class Findscreen extends Component {
         photoPath: image.path,
         photoMime: image.mime,
       });
-      console.log(image.path);
     });
   };
 
   processImage = async () => {
-    const editedPath = await this.getEditedImage();
-    const photoPath = editedPath ? editedPath : this.state.photoPath;
-    const photoMime = this.state.photoMime;
-    RNFetchBlob.fetch(
-      'POST',
-      PREDICT_URL,
-      {
-        Authorization: 'Bearer access-token',
-        'Content-Type': 'application/octet-stream',
-      }, [{
-        name: 'file',
-        filename: 'filename',
-        type: photoMime,
-        data: RNFetchBlob.wrap(photoPath),
-      }]).then(res => {
-      this.setState({
-        lipsticks: res.json(),
+    if (this.image) {
+      const result = await this.image.glView.capture();
+      ImageResizer.createResizedImage(result.uri, IMAGE_SIZE, IMAGE_SIZE, 'JPEG', 100)
+        .then(response => {
+          const photoPath = response.uri;
+          RNFetchBlob.fetch('POST', PREDICT_URL,
+            {
+              Authorization: 'Bearer access-token',
+              'Content-Type': 'application/octet-stream',
+            }, [
+              {name: 'file', filename: 'filename', type: 'image/jpeg', data: RNFetchBlob.wrap(photoPath)},
+            ]).then(res => {
+            this.setState({lipsticks: res.json()});
+          }).catch(err => {
+            alert(err);
+          });
+        })
+        .catch(err => {
+          alert(err);
+        });
+    } else {
+      const photoPath = this.state.photoPath;
+      RNFetchBlob.fetch('POST', PREDICT_URL,
+        {
+          Authorization: 'Bearer access-token',
+          'Content-Type': 'application/octet-stream',
+        }, [
+          {name: 'file', filename: 'filename', type: 'image/jpeg', data: RNFetchBlob.wrap(photoPath)},
+        ]).then(res => {
+        this.setState({lipsticks: res.json()});
+      }).catch(err => {
+        alert(err);
       });
-    }).catch(err => {
-      alert(err);
-    });
+    }
   };
 
   renderImage = () => {
@@ -128,40 +143,25 @@ export default class Findscreen extends Component {
     }
   };
 
-  getEditedImage = async () => {
+  saveImage = async () => {
     if (this.image) {
       const result = await this.image.glView.capture();
       ImageResizer.createResizedImage(result.uri, IMAGE_SIZE, IMAGE_SIZE, 'JPEG', 100)
         .then(response => {
-          // response.uri is the URI of the new image that can now be displayed, uploaded...
-          // response.path is the path of the new image
-          // response.name is the name of the new image with the extension
-          // response.size is the size of the new image
-          return response.path;
+          const editedPath = response.uri;
+          const d = new Date();
+          const path = RNFetchBlob.fs.dirs.DCIMDir + `/Images/LipstickFinder${d.getHours()}${d.getMinutes()}${d.getSeconds()}.jpg`;
+          RNFetchBlob.fs.writeFile(path, editedPath, 'uri').then(res => {
+            if (res > 0) {
+              Toast.showWithGravity('Saved', Toast.SHORT, Toast.CENTER);
+            } else {
+              Toast.showWithGravity('Error', Toast.SHORT, Toast.CENTER);
+            }
+          });
         })
         .catch(err => {
-          // Oops, something went wrong. Check that the filename is correct and
-          // inspect err to get more details.
           alert(err);
-          return null;
         });
-    }
-    return null;
-  };
-
-  saveImage = async () => {
-    const editedPath = await this.getEditedImage();
-    if (editedPath) {
-      this.setState({photoPath: editedPath});
-      const d = new Date();
-      const path = RNFetchBlob.fs.dirs.DCIMDir + `/Images/LipstickFinder${d.getHours()}${d.getMinutes()}${d.getSeconds()}.jpg`;
-      RNFetchBlob.fs.writeFile(path, editedPath, 'uri').then(res => {
-        if (res > 0) {
-          Toast.showWithGravity('Saved', Toast.SHORT, Toast.CENTER);
-        } else {
-          Toast.showWithGravity('Error', Toast.SHORT, Toast.CENTER);
-        }
-      });
     }
   };
 
@@ -169,6 +169,12 @@ export default class Findscreen extends Component {
     this.props.navigation.navigate('Makeup', {
       color: lipstick.color,
       lipstick: lipstick.name,
+    });
+  };
+
+  componentDidMount = () => {
+    this.props.navigation.addListener('blur', () => {
+      this.setState(INITIAL_STATE);
     });
   };
 
