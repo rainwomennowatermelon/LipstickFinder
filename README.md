@@ -13,8 +13,11 @@ For more details, please visit [the website of Lipstick Finder](https://i.cs.hku
 
 ## Environment
 React Native `0.63.2`
+
 Pytorch `1.5.0`
+
 MongoDB server `4.2.8`
+
 Flask `1.1.2`
 
 ## Installation
