@@ -22,6 +22,7 @@ Flask `1.1.2`
 
 ## Installation
 1. Download 
+
 You can download the Zip or Clone the project from git with this command 
 ```sh
 git clone https://github.com/rainwomennowatermelon/LipstickFinder.git
