@@ -11,6 +11,7 @@ import {Surface} from 'gl-react-native';
 import ImageFilters from 'react-native-gl-image-filters';
 import Filter from '../style/Filter';
 import Toast from 'react-native-simple-toast';
+import ImageResizer from 'react-native-image-resizer';
 
 const FILTER_SETTINGS = [
   {key: 'temperature', name: 'Temperature 色温', initValue: 6500.0, minValue: 2000.0, maxValue: 20000.0},
@@ -20,6 +21,7 @@ const FILTER_SETTINGS = [
 ];
 
 const PREDICT_URL = 'http://124.156.143.125:5000/predict';
+const IMAGE_SIZE = 512;
 
 export default class Findscreen extends Component {
   constructor(props) {
@@ -55,6 +57,7 @@ export default class Findscreen extends Component {
         photoPath: image.path,
         photoMime: image.mime,
       });
+      console.log(image.path);
     });
   };
 
@@ -83,13 +86,12 @@ export default class Findscreen extends Component {
   };
 
   renderImage = () => {
-    console.log(this.state.photoPath);
     if (this.state.photoPath) {
       const width = styles.imgWindow.width;
       return (
         <View style={styles.upperContainer}>
           <TouchableOpacity onPress={this.chooseImage} style={{alignItems: 'center'}}>
-            <Surface style={styles.imgWindow} ref={ref => (this.image = ref)}>
+            <Surface style={styles.imgWindow} ref={ref => this.image = ref}>
               <ImageFilters {...this.state} width={width} height={width}>
                 {{uri: this.state.photoPath}}
               </ImageFilters>
@@ -129,7 +131,20 @@ export default class Findscreen extends Component {
   getEditedImage = async () => {
     if (this.image) {
       const result = await this.image.glView.capture();
-      return result.uri;
+      ImageResizer.createResizedImage(result.uri, IMAGE_SIZE, IMAGE_SIZE, 'JPEG', 100)
+        .then(response => {
+          // response.uri is the URI of the new image that can now be displayed, uploaded...
+          // response.path is the path of the new image
+          // response.name is the name of the new image with the extension
+          // response.size is the size of the new image
+          return response.path;
+        })
+        .catch(err => {
+          // Oops, something went wrong. Check that the filename is correct and
+          // inspect err to get more details.
+          alert(err);
+          return null;
+        });
     }
     return null;
   };
