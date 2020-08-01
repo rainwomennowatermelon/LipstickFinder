@@ -15,9 +15,6 @@ export const encrypt= (key, text) => {
             .map(c => c.charCodeAt(0))
         );
 
-    console.log(hash);
-    console.log(aes256key);
-
     const textBytes = aes.utils.utf8.toBytes(text);
     const aesCtr = new aes.ModeOfOperation.ctr(aes256key);
     const encryptedBytes = aesCtr.encrypt(textBytes);
