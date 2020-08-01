@@ -20,7 +20,10 @@ MongoDB server `4.2.8`
 
 Flask `1.1.2`
 
+In order to run this project locally, we recommend you to install the environment according to the above version, and build a simulator of Galaxy Nexus API 28 AVD with Android 9.0 x86_64 operation system. 
+
 ## Installation
+
 1. Download 
 
 You can download the Zip or Clone the project from git with this command 
@@ -40,3 +43,6 @@ chmod +x gradlew
 ```sh
 npx react-native run-android
 ```
+
+### Debug
+If there is a `com.android.ddmlib.InstallException: INSTALL_FAILED_INSUFFICIENT_STORAGE` error when install, try to install a NDK `21.3.6528147` in `SDK Tools` for a bigger space.
