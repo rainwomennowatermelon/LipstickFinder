@@ -9,7 +9,7 @@ To recommend personalized lipsticks, the recommendation module conducts database
 
 Lipstick Finder is constructed to support aforementioned modules using React Native framework, wishing to provide an intelligent lipstick assistant for everyone.
 
-For more details, please visit [the website of Lipstick Finder](https://i.cs.hku.hk/~msp19019/). Backend repository: [LipstickFinder-Backend](https://github.com/rainwomennowatermelon/LipstickFinder-Backend). Project report: [Lipstick Finder: A Mobile Application for Lipstick Recognition, Makeup, and Recommendation.pdf](https://drive.google.com/file/d/1q-VDsfE68LNeNTS8KZzClKLqlieA2pn-/view?usp=sharing).
+For more details, please visit [the website of Lipstick Finder](https://rainwomennowatermelon.github.io/LipstickFinder/). Backend repository: [LipstickFinder-Backend](https://github.com/rainwomennowatermelon/LipstickFinder-Backend). Project report: [Lipstick Finder: A Mobile Application for Lipstick Recognition, Makeup, and Recommendation.pdf](https://drive.google.com/file/d/1q-VDsfE68LNeNTS8KZzClKLqlieA2pn-/view?usp=sharing).
 
 ![Lipstick Reconition](https://github.com/rainwomennowatermelon/LipstickFinder/blob/master/images/demo-3.png?raw=true)
 ![Lip Makeup](https://github.com/rainwomennowatermelon/LipstickFinder/blob/master/images/demo-4.png?raw=true)
